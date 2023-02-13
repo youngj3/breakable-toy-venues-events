@@ -10,7 +10,17 @@ venuesRouter.get('/', async (req, res) => {
     const serializedVenues = VenueSerializer.getDetailsForIndex(venues)
     return res.status(200).json({venues: serializedVenues})
   } catch(error) {
-    console.log(error)
+		res.status(500).json({ errors: error})
+	}
+})
+
+venuesRouter.get('/:id', async (req,res) => {
+  const venueId = req.params.id
+  try{
+    const venue = await Venue.query().findById(venueId)
+    const serializedVenue = VenueSerializer.getDetailsForShow(venue)
+    return res.status(200).json({venue: serializedVenue})
+  } catch(error) {
 		res.status(500).json({ errors: error})
 	}
 })

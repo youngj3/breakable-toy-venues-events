@@ -7,6 +7,10 @@ class VenueSerializer extends Serializer {
     })
     return serializedVenues
   }
+
+  static getDetailsForShow(venue){
+    return this.serialize(venue, ["id", "name", "city", "state", "image", "address", "postalCode"])
+  }
 }
 
 export default VenueSerializer
