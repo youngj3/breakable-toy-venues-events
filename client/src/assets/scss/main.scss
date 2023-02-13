@@ -12,3 +12,33 @@
   -moz-tab-size: 4;
   tab-size: 4;
 }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Gill Sans", sans-serif;
+}
+
+a {
+  color: black; 
+}
+
+a:hover, a:active, a:focus {
+  color: #ff7400;
+}
+
+.venue-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.venue-tile {
+  width: 25%;
+  margin: 4rem auto;
+  padding: 2rem;
+  border-radius: 3rem;
+}
+
+.centered-content {
+  max-width: 75%;
+  margin: 0 auto;
+  text-align: center;
+}
