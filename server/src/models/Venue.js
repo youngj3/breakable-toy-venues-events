@@ -19,6 +19,21 @@ class Venue extends Model {
       }
     }
   }
+
+  static get relationMappings() {
+    const { Event } = require('./index')
+
+    return {
+      events: {
+        relation: Model.HasManyRelation,
+        modelClass: Event,
+        join: {
+          from: 'venues.id',
+          to: 'events.venueId'
+        }
+      }
+    }
+  }
 }
 
 module.exports = Venue
