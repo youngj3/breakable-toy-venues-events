@@ -61,6 +61,12 @@ class TicketMaster {
   
   static async organizeRelatedEvents(exactId){
     const someData = await this.fetchRelatedEvents(exactId)
+
+    if (someData._embedded === undefined){
+      const noData = []
+      return noData
+    }
+
     const events = someData._embedded.events
     const organizedEvents = events.map(event => {
       let lowPrice
@@ -81,7 +87,7 @@ class TicketMaster {
       }else{
         returnImage = ""
       }
-      
+
       return {
         name: event.name,
         image: returnImage,

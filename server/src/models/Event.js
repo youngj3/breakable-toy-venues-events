@@ -13,7 +13,7 @@ class Event extends Model {
         name: {type: 'string'},
         date: {type: 'string'},
         description: {type: 'string'},
-        image: {type: 'string'},
+        image: {type: ['string', 'integer']},
         genre: {type: 'string'},
         priceRange: {type: 'string'},
         venueId: {type: [ 'integer', 'string']}
