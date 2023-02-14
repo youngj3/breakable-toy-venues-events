@@ -9,7 +9,7 @@ const baseUrl = 'https://app.ticketmaster.com/discovery/v2/';
 class TicketMaster {
 
   static async fetchVenues() {
-    try{
+    try {
       const url = `${baseUrl}/venues?stateCode=MA&apikey=${apiKey}`
       const apiResponse = await got(url)
       const responseBody = apiResponse.body
@@ -21,7 +21,7 @@ class TicketMaster {
     }
   }
 
-  static async organizeVenues(){
+  static async organizeVenues() {
     const venueData = await TicketMaster.fetchVenues()
     const easyAccessVenueData = venueData._embedded.venues
     const venues = easyAccessVenueData.map(venue => {
@@ -38,16 +38,14 @@ class TicketMaster {
         state: venue.state.stateCode, 
         address: venue.address.line1,
         postalCode: venue.postalCode
-
       }
     })
     return venues
   }
 
-  static async fetchRelatedEvents(exactId){
-    try{
+  static async fetchRelatedEvents(exactId) {
+    try {
       const url = `${baseUrl}/events?venueId=${exactId}&classificationName=music&apikey=${apiKey}`
-
       const apiResponse = await got(url)
       const responseBody = apiResponse.body
       const apiData = JSON.parse(responseBody)
@@ -58,11 +56,10 @@ class TicketMaster {
     }
   }
 
-  
-  static async organizeRelatedEvents(exactId){
+  static async organizeRelatedEvents(exactId) {
     const someData = await this.fetchRelatedEvents(exactId)
 
-    if (someData._embedded === undefined){
+    if (someData._embedded === undefined) {
       const noData = []
       return noData
     }
@@ -72,10 +69,10 @@ class TicketMaster {
       let lowPrice
       let highPrice
 
-      if (event.priceRanges && event.priceRanges[0]){
+      if (event.priceRanges && event.priceRanges[0]) {
         lowPrice = event.priceRanges[0].min
         highPrice = event.priceRanges[0].max
-      }else{
+      } else {
         lowPrice = "n/a"
         highPrice = "n/a"
       }
@@ -84,7 +81,7 @@ class TicketMaster {
       let image = event.images
       if (image !== undefined) {
         returnImage = Object.values(image[0])[1]
-      }else{
+      } else {
         returnImage = ""
       }
 
@@ -98,7 +95,6 @@ class TicketMaster {
     })
     return organizedEvents
   }
-
 }
 
 export default TicketMaster
