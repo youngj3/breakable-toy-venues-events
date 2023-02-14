@@ -1,9 +1,6 @@
 import { Configuration, OpenAIApi } from 'openai'
-import fetch from 'node-fetch'
 import dotenv from "dotenv"
 dotenv.config()
-
-
 
 class OpenAi {
   static async generateText(prompt){
