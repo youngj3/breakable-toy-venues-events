@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import VenueTile from './VenueTile.js'
 import boston from '../assets/images/boston.jpg'
+
 const VenueList = props => {
   const [venueList, setVenueList] = useState([])
 
@@ -32,11 +33,14 @@ const VenueList = props => {
   }, [])
 
   return (
+    <div>
+    <img src={boston} className="venue-list-header" />
     <div className='centered-content'>
-      <h1>Major Mass Venues:</h1>
+    <h1 className='venue-list-title'>Major Mass Venues:</h1>
       <div className='venue-list'>
       {venuesAsReact}
       </div>
+    </div>
     </div>
   )
 }

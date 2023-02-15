@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { hot } from "react-hot-loader/root";
 
+import LandingPage from "./LandingPage.js";
 import getCurrentUser from "../services/getCurrentUser";
 import "../assets/scss/main.scss";
 import RegistrationForm from "./registration/RegistrationForm";
@@ -29,6 +30,7 @@ const App = (props) => {
     <Router>
       <TopBar user={currentUser} />
       <Switch>
+        <Route exact path="/" component={LandingPage} />
         <Route exact path="/venues" component={VenueList}/>
         <Route exact path="/venues/:id" component={VenueShowPage} />
         <Route exact path="/users/new" component={RegistrationForm} />
