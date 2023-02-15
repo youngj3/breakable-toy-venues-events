@@ -41,16 +41,23 @@ const VenueShowPage = props => {
 
   const fullAddress = `${venue.address}, ${venue.city}, ${venue.state} ${venue.postalCode}`
   return (
-    <div className="centered-content">
-      <h1>{venue.name}</h1>
-      <div className="show-page-flex">
-				<div className="show-page-info">
+    <div>
+      <div className="centered-content">
+        <h1>{venue.name}</h1>
+			  <div className="show-page-info">
           <p>{fullAddress}</p>
+          <img src={venue.image} className='show-page-image' />
         </div>
-        <img src={venue.image} className='show-page-image' />
-      </div>
-      {eventsAsReactTiles}
+        </div>
+        <div className="centered-content">
+				  <h2>Upcoming Events:</h2>
+				  <div className="show-page-events-list">
+					  {eventsAsReactTiles}
+				  </div>
+			  </div>
     </div>
+      
+    
   )
 }
 

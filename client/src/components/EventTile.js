@@ -6,13 +6,13 @@ const EventTile = ({event}) => {
 
   let eventImage
 	if (image) {
-		eventImage = <img className="card-img-left example-card-img-responsive" src={image}/>
+		eventImage = <img src={image}/>
 	}
 
   const nameLink = <Link to={`/venues/${venueId}`}>{name}</Link>
 
   return (
-    <div className='event-tile card flex-row'>
+    <div className='event-tile card'>
       {eventImage}
       <h4>{nameLink}</h4>
     </div>
