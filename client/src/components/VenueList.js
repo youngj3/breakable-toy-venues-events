@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import VenueTile from './VenueTile.js'
-
+import boston from '../assets/images/boston.jpg'
 const VenueList = props => {
   const [venueList, setVenueList] = useState([])
 
