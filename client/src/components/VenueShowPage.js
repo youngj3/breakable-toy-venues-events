@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react"
 import EventTile from "./EventTile.js"
+import SimpleJsApiLoaderGoogleMap from "./map/SimpleJsApiLoaderGoogleMap.js"
+import geoCode from "./map/geoCode.js"
 
 const VenueShowPage = props => {
   const venueId = props.match.params.id
@@ -40,6 +42,7 @@ const VenueShowPage = props => {
   })
 
   const fullAddress = `${venue.address}, ${venue.city}, ${venue.state} ${venue.postalCode}`
+
   return (
     <div>
       <div className="centered-content">
@@ -47,6 +50,7 @@ const VenueShowPage = props => {
 			  <div className="show-page-info">
           <p>{fullAddress}</p>
           <img src={venue.image} className='show-page-image' />
+          <SimpleJsApiLoaderGoogleMap location={fullAddress} />
         </div>
         </div>
         <div className="centered-content">
