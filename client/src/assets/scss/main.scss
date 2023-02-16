@@ -51,12 +51,18 @@ a:hover, a:active, a:focus {
 }
 
 .event-tile {
-  align-content: center;
-  width: 25%;
-  margin: 0em auto 2em;
-  border-width: 1px;
-  border-color: black;
-  border-radius: 20px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 2px 1px 1px #d7263d;
+  margin-right: 10px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  width: 250px;
+}
+
+.event-tile-picture {
+  object-fit: cover;
+  height: 100px;
 }
 
 .venue-tile:hover {

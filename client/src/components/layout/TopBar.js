@@ -19,12 +19,9 @@ const TopBar = ({ user }) => {
     <li key="sign-out">
       <SignOutButton />
     </li>,
-     <li key="change-image" className="top-bar-margin">
-     <Link to="/users/image">Change User Image</Link>
-   </li>,
-    <li key="user-image">
-      <ProfileImageDisplayTile />
-    </li>,
+    <li key='profile-link'>
+      <Link to={`/users/${user?.id}`}>My Profile</Link>
+    </li>
   ];
 
   return (

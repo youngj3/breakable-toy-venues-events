@@ -86,7 +86,6 @@ const RegistrationForm = () => {
     newUploadBody.append("firstName", userPayload.firstName)
     newUploadBody.append("lastName", userPayload.lastName)
     newUploadBody.append("userName", userPayload.userName)
-    debugger
     try {
       if (Object.keys(errors).length === 0) {
         const response = await fetch("/api/v1/users", {
@@ -96,7 +95,6 @@ const RegistrationForm = () => {
             "Accept": "image/jpeg"
           }),
         });
-        debugger
         if (!response.ok) {
           const errorMessage = `${response.status} (${response.statusText})`;
           const error = new Error(errorMessage);
@@ -106,7 +104,6 @@ const RegistrationForm = () => {
         setShouldRedirect(true);
       }
     } catch (err) {
-      console.log(err)
       console.error(`Error in fetch: ${err.message}`);
     }
   };
