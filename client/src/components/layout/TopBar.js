@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import SignOutButton from "../authentication/SignOutButton";
+import ProfileImageDisplayTile from "../ProfileImageDisplayTile.js";
 
 const TopBar = ({ user }) => {
   const unauthenticatedListItems = [
@@ -17,6 +18,12 @@ const TopBar = ({ user }) => {
   const authenticatedListItems = [
     <li key="sign-out">
       <SignOutButton />
+    </li>,
+     <li key="change-image" className="top-bar-margin">
+     <Link to="/users/image">Change User Image</Link>
+   </li>,
+    <li key="user-image">
+      <ProfileImageDisplayTile />
     </li>,
   ];
 
