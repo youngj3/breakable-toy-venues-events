@@ -6,7 +6,7 @@ const EventTile = ({event}) => {
 
   let eventImage
 	if (image) {
-		eventImage = <img src={image}/>
+		eventImage = <img className="event-tile-picture" src={image}/>
 	}
 
   const nameLink = <Link to={`/venues/${venueId}`}>{name}</Link>

@@ -1,12 +1,17 @@
 import React, { useState } from "react";
 import FormError from "../layout/FormError";
 import config from "../../config";
+import UploadUserImage from '../uploads/UploadUserImage.js'
 
 const RegistrationForm = () => {
   const [userPayload, setUserPayload] = useState({
     email: "",
     password: "",
     passwordConfirmation: "",
+    firstName: "",
+    lastName: "",
+    userName: "",
+    image: {}
   });
 
   const [errors, setErrors] = useState({});
@@ -15,7 +20,7 @@ const RegistrationForm = () => {
 
   const validateInput = (payload) => {
     setErrors({});
-    const { email, password, passwordConfirmation } = payload;
+    const { email, password, passwordConfirmation, firstName, lastName, userName } = payload;
     const emailRegexp = config.validation.email.regexp;
     let newErrors = {};
     if (!email.match(emailRegexp)) {
@@ -46,19 +51,48 @@ const RegistrationForm = () => {
       }
     }
 
+    if(firstName.trim() === ''){
+      newErrors = {
+        ...newErrors,
+        firstName: "is required"
+      }
+    }
+
+    if(lastName.trim() === ''){
+      newErrors = {
+        ...newErrors,
+        lastName: "is required"
+      }
+    }
+
+    if(userName.trim() === ''){
+      newErrors = {
+        ...newErrors,
+        userName: "is required"
+      }
+    }
+
     setErrors(newErrors);
   };
 
   const onSubmit = async (event) => {
     event.preventDefault();
     validateInput(userPayload);
+    const newUploadBody = new FormData()
+    newUploadBody.append("image", userPayload.image)
+    newUploadBody.append("email", userPayload.email)
+    newUploadBody.append("password", userPayload.password)
+    newUploadBody.append("passwordConfirmation", userPayload.passwordConfirmation)
+    newUploadBody.append("firstName", userPayload.firstName)
+    newUploadBody.append("lastName", userPayload.lastName)
+    newUploadBody.append("userName", userPayload.userName)
     try {
       if (Object.keys(errors).length === 0) {
         const response = await fetch("/api/v1/users", {
-          method: "post",
-          body: JSON.stringify(userPayload),
+          method: "POST",
+          body: newUploadBody,
           headers: new Headers({
-            "Content-Type": "application/json",
+            "Accept": "image/jpeg"
           }),
         });
         if (!response.ok) {
@@ -89,26 +123,56 @@ const RegistrationForm = () => {
     <div className="grid-container">
       <h1>Register</h1>
       <form onSubmit={onSubmit}>
-        <div>
+        
+          <label>First name
+            <input 
+              type="text"
+              name="firstName"
+              value={userPayload.firstName}
+              onChange={onInputChange}
+            />
+            <FormError error={errors.firstName} />
+          </label>
+        
+        
+          <label>Last name
+            <input 
+              type="text"
+              name="lastName"
+              value={userPayload.lastName}
+              onChange={onInputChange}
+            />
+            <FormError error={errors.lastName} />
+          </label>
+
+          <label>User name
+            <input 
+              type="text"
+              name="userName"
+              value={userPayload.userName}
+              onChange={onInputChange}
+            />
+            <FormError error={errors.userName} />
+          </label>
+
+        
           <label>
             Email
             <input type="text" name="email" value={userPayload.email} onChange={onInputChange} />
             <FormError error={errors.email} />
           </label>
-        </div>
-        <div>
+        
           <label>
             Password
             <input
-              type="password"
-              name="password"
-              value={userPayload.password}
-              onChange={onInputChange}
+                type="password"
+                name="password"
+                value={userPayload.password}
+                onChange={onInputChange}
             />
             <FormError error={errors.password} />
           </label>
-        </div>
-        <div>
+        
           <label>
             Password Confirmation
             <input
@@ -119,11 +183,13 @@ const RegistrationForm = () => {
             />
             <FormError error={errors.passwordConfirmation} />
           </label>
-        </div>
-        <div>
+
           <input type="submit" className="button" value="Register" />
-        </div>
       </form>
+      <UploadUserImage 
+        setUserPayload={setUserPayload}
+        userPayload={userPayload}
+      />
     </div>
   );
 };

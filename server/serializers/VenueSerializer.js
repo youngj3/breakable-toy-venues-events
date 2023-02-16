@@ -19,7 +19,6 @@ class VenueSerializer extends Serializer {
         })
       )
       serializedVenue.events = serializedEvents
-      console.log(serializedVenue)
       return serializedVenue
     } catch(error) {
       throw(error)
