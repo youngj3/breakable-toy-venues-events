@@ -139,3 +139,16 @@ a:hover, a:active, a:focus {
 .e-show-page-right {
   margin-top: 50px;
 }
+
+.footer {
+  background-color: #d7263d;
+}
+
+.footer.right {
+  justify-content:end
+}
+
+.footer-img {
+  height: 100px;
+  justify-content: right;
+}

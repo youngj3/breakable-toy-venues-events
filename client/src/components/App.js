@@ -12,6 +12,7 @@ import TopBar from "./layout/TopBar";
 import VenueList from "./VenueList.js";
 import VenueShowPage from "./VenueShowPage.js";
 import EventShowPage from "./EventShowPage.js";
+import Footer from "./layout/Footer.js";
 
 const App = (props) => {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -48,6 +49,7 @@ const App = (props) => {
           render={props => <UserProfile {...props} savedEventsList={savedEventsList} setSavedEventsList={setSavedEventsList}/>}
         />
       </Switch>
+      <Footer />
     </Router>
   );
 };
