@@ -15,6 +15,8 @@ import EventShowPage from "./EventShowPage.js";
 
 const App = (props) => {
   const [currentUser, setCurrentUser] = useState(undefined);
+  const [savedEventsList, setSavedEventsList] = useState([])
+
   const fetchCurrentUser = async () => {
     try {
       const user = await getCurrentUser()
@@ -35,10 +37,16 @@ const App = (props) => {
         <Route exact path="/" component={LandingPage} />
         <Route exact path="/venues" component={VenueList}/>
         <Route exact path="/venues/:id" component={VenueShowPage} />
-        <Route exact path="/venues/:venueId/events/:id" component={EventShowPage} />
+        <Route 
+          exact path="/venues/:venueId/events/:id"
+          render={props => <EventShowPage {...props} savedEventsList={savedEventsList} setSavedEventsList={setSavedEventsList}/>}
+        />
         <Route exact path="/users/new" component={RegistrationForm} />
         <Route exact path="/user-sessions/new" component={SignInForm} />
-        <Route exact path="/users/:id" component={UserProfile}/>
+        <Route 
+          exact path="/users/:id" 
+          render={props => <UserProfile {...props} savedEventsList={savedEventsList} setSavedEventsList={setSavedEventsList}/>}
+        />
       </Switch>
     </Router>
   );

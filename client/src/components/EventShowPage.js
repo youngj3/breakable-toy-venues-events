@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react'
 const EventShowPage = (props) => {
   const venueId = props.match.params.venueId
   const eventId = props.match.params.id
+  const savedEventsList = props.savedEventsList
+  const setSavedEventsList = props.setSavedEventsList
 
   const [ venueName, setVenueName ] = useState("")
   const [ event, setEvent ] = useState({
@@ -41,15 +43,33 @@ const EventShowPage = (props) => {
 			console.error(`Error in fetch: ${error.message}`)
 		}
   }
+
+  const alreadyExists = savedEventsList.some(obj => JSON.stringify(obj) === JSON.stringify(event));
+
   
+
+  const handleSaveEvent = e => {
+    e.preventDefault()
+    if (!alreadyExists) {
+      setSavedEventsList([...savedEventsList, event])
+    }
+  }
+
+  const handleRemoveEvent = e => {
+    e.preventDefault()
+    setSavedEventsList(savedEventsList.filter(savedEvent => savedEvent.id !== event.id))
+  }
+
   useEffect(() => {
     getEventDetails()
     getLocation()
   }, [])
 
-  const handleSaveEvent = () => {
-    event.preventDefault()
+  let button = <input className='button' type='button' value='Interested? Add this concert to your list!' onClick={handleSaveEvent} />
+  if (alreadyExists) {
+    button = <input className='button' type='button' value='Remove from your list' onClick={handleRemoveEvent} />
   }
+
   const date = new Date(event.date)
   const readableDate = date.toString().substring(0,21)
 
@@ -66,7 +86,7 @@ const EventShowPage = (props) => {
 							<p><b>When:</b> {readableDate}</p>
               <p><b>Where:</b> {venueName}</p>
 							<p><b>Est. Price($USD):</b> {event.priceRange}</p>
-              <input className='button' type='button' value='Interested? Add this concert to your list!' onClick={handleSaveEvent} />
+              {button}
 						</div>
             <div className='callout'>
             <p>{event.description}</p>
