@@ -3,7 +3,8 @@ import React, { useEffect, useState } from 'react'
 const EventShowPage = (props) => {
   const venueId = props.match.params.venueId
   const eventId = props.match.params.id
-  console.log(venueId, eventId)
+
+  const [ venueName, setVenueName ] = useState("")
   const [ event, setEvent ] = useState({
     id: "",
     name: "",
@@ -24,27 +25,52 @@ const EventShowPage = (props) => {
       const eventData = await response.json()
       setEvent(eventData.event)
     } catch(error) {
-      console.log(error)
 			console.error(`Error in fetch: ${error.message}`)
 		}
   }
 
+  const getLocation = async () => {
+    try {
+      const response = await fetch(`/api/v1/venues/${venueId}`)
+      if (!response.ok) {
+				throw new Error(`${response.status} (${response.statusText})`)
+			}
+      const venueInformation = await response.json()
+      setVenueName(venueInformation.venue.name)
+    } catch(error) {
+			console.error(`Error in fetch: ${error.message}`)
+		}
+  }
+  
   useEffect(() => {
     getEventDetails()
+    getLocation()
   }, [])
+
+  const handleSaveEvent = () => {
+    event.preventDefault()
+  }
+  const date = new Date(event.date)
+  const readableDate = date.toString().substring(0,21)
 
   return (
     <div>
 				<div className="centered-content">
 					<h1>{event.name}</h1>
-					<div className="event-show-page-flex">
-						<div className="event-show-page-info">
-							<p>Genre: {event.genre}</p>
-							<p>When: {event.date}</p>
-							<p>About: {event.description}</p>
-							<p>Est. Price: {event.priceRange}</p>    
+					<div className="grid-x">
+            <div className='e-show-page-left callout secondary medium-6'>
+            <img src={event.image} className="show-page-image" />
+            </div>
+						<div className="e-show-page-right callout secondary medium-6">
+							<p><b>Genre:</b> {event.genre}</p>
+							<p><b>When:</b> {readableDate}</p>
+              <p><b>Where:</b> {venueName}</p>
+							<p><b>Est. Price($USD):</b> {event.priceRange}</p>
+              <input className='button' type='button' value='Interested? Add this concert to your list!' onClick={handleSaveEvent} />
 						</div>
-						<img src={event.image} className="show-page-image" />
+            <div className='callout'>
+            <p>{event.description}</p>
+            </div>
 					</div>
 				</div>
 			</div>

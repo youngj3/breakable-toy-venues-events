@@ -122,3 +122,20 @@ a:hover, a:active, a:focus {
   z-index: 10;
   user-select: none;
 }
+
+.callout {
+  border: none;
+}
+
+.callout.secondary {
+  background-color: white;
+}
+
+.show-page-image {
+  height: 300px;
+  border-radius: 1rem;
+}
+
+.e-show-page-right {
+  margin-top: 50px;
+}
