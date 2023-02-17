@@ -11,6 +11,7 @@ import SignInForm from "./authentication/SignInForm";
 import TopBar from "./layout/TopBar";
 import VenueList from "./VenueList.js";
 import VenueShowPage from "./VenueShowPage.js";
+import EventShowPage from "./EventShowPage.js";
 
 const App = (props) => {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -34,6 +35,7 @@ const App = (props) => {
         <Route exact path="/" component={LandingPage} />
         <Route exact path="/venues" component={VenueList}/>
         <Route exact path="/venues/:id" component={VenueShowPage} />
+        <Route exact path="/venues/:venueId/events/:id" component={EventShowPage} />
         <Route exact path="/users/new" component={RegistrationForm} />
         <Route exact path="/user-sessions/new" component={SignInForm} />
         <Route exact path="/users/:id" component={UserProfile}/>
