@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react"
 import EventTile from "./EventTile.js"
 import SimpleJsApiLoaderGoogleMap from "./map/SimpleJsApiLoaderGoogleMap.js"
-import geoCode from "./map/geoCode.js"
 
 const VenueShowPage = props => {
   const venueId = props.match.params.id
