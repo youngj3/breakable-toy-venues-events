@@ -22,7 +22,7 @@ class Event extends Model {
   }
 
   static get relationMappings() {
-    const { Venue } = require('./index')
+    const { Venue, User, Interest } = require('./index')
 
     return {
       venue: {
@@ -31,6 +31,26 @@ class Event extends Model {
         join: {
           from: 'events.venueId',
           to: 'venues.id'
+        }
+      },
+      users: {
+        relation: Model.ManyToManyRelation,
+        modelClass: User,
+        join: {
+          from: 'events.id',
+          through: {
+            from: 'interests.eventId',
+            to: 'interests.userId'
+          },
+          to: 'users.id'
+        }
+      },
+      interests: {
+        relation: Model.HasManyRelation,
+        modelClass: Interest,
+        join: {
+          from: 'events.id',
+          to: 'interests.eventId'
         }
       }
     }

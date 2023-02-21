@@ -46,18 +46,22 @@ const VenueShowPage = props => {
     <div>
       <div className="centered-content">
         <h1>{venue.name}</h1>
-			  <div className="show-page-info">
-          <p>{fullAddress}</p>
-          <img src={venue.image} className='show-page-image' />
-          <SimpleJsApiLoaderGoogleMap location={fullAddress} />
+        <p><b>Located at:</b> {fullAddress}</p>
+        <div className="grid-x">
+          <div className="v-show-page-left callout secondary medium-6">
+            <img src={venue.image} className='show-page-image' />
+          </div>
+          <div className="v-show-page-left callout secondary medium-6">
+            <SimpleJsApiLoaderGoogleMap location={fullAddress} />
+          </div>
         </div>
         </div>
-        <div className="centered-content">
-				  <h2>Upcoming Events:</h2>
-				  <div className="show-page-events-list">
-					  {eventsAsReactTiles}
-				  </div>
-			  </div>
+      <div className="centered-content">
+				<h2>Upcoming Events:</h2>
+				<div className="show-page-events-list">
+					{eventsAsReactTiles}
+				</div>
+			</div>
     </div>
       
     

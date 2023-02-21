@@ -122,3 +122,48 @@ a:hover, a:active, a:focus {
   z-index: 10;
   user-select: none;
 }
+
+.callout {
+  border: none;
+}
+
+.callout.secondary {
+  background-color: white;
+}
+
+.show-page-image {
+  height: 300px;
+  border-radius: 1rem;
+}
+
+.e-show-page-right {
+  margin-top: 50px;
+}
+
+.footer {
+  background-color: #d7263d;
+}
+
+.footer.right {
+  display: flex;
+  justify-content: flex-end;
+  
+}
+
+.footer-img {
+  height: 50px;
+}
+
+.landing-page-events-list {
+  display: flex;
+  flex-wrap: wrap
+}
+
+.events-user-profile {
+  display: flex;
+  flex-wrap: wrap
+}
+
+.my-name {
+  margin-bottom: 20px;
+}

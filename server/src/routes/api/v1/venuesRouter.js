@@ -1,6 +1,7 @@
 import express from 'express'
 import VenueSerializer from '../../../../serializers/VenueSerializer.js'
 import { Venue } from '../../../models/index.js'
+import venuesEventsRouter from './venuesEventsRouter.js'
 
 const venuesRouter = new express.Router()
 
@@ -24,5 +25,8 @@ venuesRouter.get('/:id', async (req,res) => {
 		res.status(500).json({ errors: error})
 	}
 })
+
+
+venuesRouter.use('/:venueId/events', venuesEventsRouter)
 
 export default venuesRouter
