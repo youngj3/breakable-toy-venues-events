@@ -7,7 +7,8 @@ const EventShowPage = (props) => {
   const eventId = props.match.params.id
   const savedEventsList = props.savedEventsList
   const setSavedEventsList = props.setSavedEventsList
-
+  const currentUser = props.currentUser
+  
   const [ venueName, setVenueName ] = useState("")
   const [ event, setEvent ] = useState({
     id: "",
@@ -19,7 +20,7 @@ const EventShowPage = (props) => {
     description: "",
     venueId: ""
   })
-  console.log(savedEventsList)
+
   const alreadyExists = () => {
     return savedEventsList.some(savedEvent => savedEvent.id === event.id);
   }
@@ -86,10 +87,15 @@ const EventShowPage = (props) => {
   }, [])
 
   let button
-  if (alreadyExists()) {
-    button = <input className='button' type='button' value='Remove from your list' onClick={handleRemoveEvent} /> 
-  }else{
-    button = <input className='button' type='button' value='Interested? Add this concert to your list!' onClick={handleSaveEvent} />
+  if(currentUser === undefined){
+    button = ""
+  } else {
+    if (currentUser && alreadyExists()) {
+      button = <input className='button' type='button' value='Remove from your list' onClick={handleRemoveEvent} /> 
+    }else{
+      if (currentUser && !alreadyExists())
+      button = <input className='button' type='button' value='Interested? Add this concert to your list!' onClick={handleSaveEvent} />
+    }
   }
 
   const date = new Date(event.date)

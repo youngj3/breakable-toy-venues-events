@@ -42,7 +42,7 @@ const App = (props) => {
         <Route exact path="/venues/:id" component={VenueShowPage} />
         <Route 
           exact path="/venues/:venueId/events/:id"
-          render={props => <EventShowPage {...props} savedEventsList={savedEventsList} setSavedEventsList={setSavedEventsList}/>}
+          render={props => <EventShowPage {...props} savedEventsList={savedEventsList} setSavedEventsList={setSavedEventsList} currentUser={currentUser}/>}
         />
         <Route exact path="/users/new" component={RegistrationForm} />
         <Route exact path="/user-sessions/new" component={SignInForm} />

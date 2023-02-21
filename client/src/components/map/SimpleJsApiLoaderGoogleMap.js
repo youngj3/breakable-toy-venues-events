@@ -7,41 +7,41 @@ const SimpleJsApiLoaderGoogleMap = (props) => {
   const [location, setLocation] = useState(null);
   const apiKey = 'AIzaSyAfRs5ivkpcrV14qQL9I75Ve4gz3AaBpDM';
   
-  useEffect(() => {
-    const fetchLocation = async () => {
-      try {
-        const location = await geoCode(props.location);
-        setLocation(location);
-      } catch (error) {
-        console.error(`error fetching location: ${error}`);
+  const fetchLocation = async () => {
+    try {
+      const location = await geoCode(props.location);
+      setLocation(location);
+
+      if (!mapLoaded) {
+        const loader = new Loader({
+          apiKey,
+          libraries: ["places"]
+        });
+
+        loader.load().then(() => {
+          const map = new google.maps.Map(document.getElementById("map"), {
+            center: location,
+            zoom: 12,
+          });
+
+          new google.maps.Marker({
+            position: location,
+            map: map,
+          });
+
+          setMapLoaded(true);
+        }).catch((error) => {
+          console.error(`error loading map: ${error}`);
+        });
       }
-    };
-    
-    if (location && !mapLoaded) {
-      const loader = new Loader({
-        apiKey,
-        libraries: ["places"]
-      });
-      
-      loader.load().then(() => {
-        const map = new google.maps.Map(document.getElementById("map"), {
-          center: location,
-          zoom: 12,
-        });
-        
-        new google.maps.Marker({
-          position: location,
-          map: map,
-        });
-        
-        setMapLoaded(true);
-      }).catch((error) => {
-        console.error(`error loading map: ${error}`);
-      });
-    } else {
-      fetchLocation();
+    } catch (error) {
+      console.error(`error fetching location: ${error}`);
     }
-  }, [props.location, location, mapLoaded, apiKey]);
+  };
+
+  useEffect(() => {
+    fetchLocation()
+   }, [props.location, apiKey]);
   
   return (
     <>
