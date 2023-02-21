@@ -4,7 +4,8 @@ import SimpleJsApiLoaderGoogleMap from "./map/SimpleJsApiLoaderGoogleMap.js"
 
 const VenueShowPage = props => {
   const venueId = props.match.params.id
-
+  const [currentEventPage, setCurrentEventPage] = useState(1)
+  const [eventsPerPage, setEventsPerPage] = useState(6)
   const [ venue, setVenue ] = useState({
     name: "",
     city: "",
@@ -32,13 +33,25 @@ const VenueShowPage = props => {
     getVenueInformation()
   }, [])
 
-  const eventsAsReactTiles = venue.events.map(event => {
+  const indexOfLastEvent = currentEventPage * eventsPerPage
+  const indexOfFirstEvent = indexOfLastEvent - eventsPerPage
+  const currentEvents = venue.events.slice(indexOfFirstEvent, indexOfLastEvent)
+
+  const eventsAsReactTiles = currentEvents.map(event => {
     return (
       <EventTile
         key={event.id}
         event={event}/>
     )
   })
+
+  const goToPreviousPage = () => {
+    setCurrentEventPage(currentEventPage - 1)
+  }
+  
+  const goToNextPage = () => {
+    setCurrentEventPage(currentEventPage + 1)
+  }
 
   const fullAddress = `${venue.address}, ${venue.city}, ${venue.state} ${venue.postalCode}`
 
@@ -58,6 +71,8 @@ const VenueShowPage = props => {
         </div>
       <div className="centered-content">
 				<h2>Upcoming Events:</h2>
+        <input className='button' type='button' value='Previous' onClick={goToPreviousPage} disabled={currentEventPage === 1}/>
+        <input className='button' type='button' value='   Next   ' onClick={goToNextPage} disabled={currentEvents.length < eventsPerPage} />
 				<div className="show-page-events-list">
 					{eventsAsReactTiles}
 				</div>
