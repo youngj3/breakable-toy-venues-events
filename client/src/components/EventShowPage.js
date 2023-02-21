@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react'
+import createAnInterest from '../../../server/src/services/createAnInterest.js'
+import deleteAnInterest from '../../../server/src/services/deleteAnInterest.js'
 
 const EventShowPage = (props) => {
   const venueId = props.match.params.venueId
@@ -17,7 +19,11 @@ const EventShowPage = (props) => {
     description: "",
     venueId: ""
   })
-  
+  console.log(savedEventsList)
+  const alreadyExists = () => {
+    return savedEventsList.some(savedEvent => savedEvent.id === event.id);
+  }
+    
   const getEventDetails = async () => {
     try {
       const response = await fetch(`/api/v1/venues/${venueId}/events/${eventId}`)
@@ -44,30 +50,46 @@ const EventShowPage = (props) => {
 		}
   }
 
-  const alreadyExists = savedEventsList.some(obj => JSON.stringify(obj) === JSON.stringify(event));
-
+  const getSavedEvents = async () => {
+    try{
+      const response = await fetch('/api/v1/interests')
+      if (!response.ok) {
+				throw new Error(`${response.status} (${response.statusText})`)
+			}
+      const body = await response.json()
+      setSavedEventsList(body.savedEvents)
+    } catch(error) {
+			console.error(`Error in fetch: ${error.message}`)
+		}
+  }
   
-
   const handleSaveEvent = e => {
     e.preventDefault()
-    if (!alreadyExists) {
+    if (!alreadyExists()) {
+      const eventId = event.id
+      createAnInterest(eventId)
       setSavedEventsList([...savedEventsList, event])
     }
   }
 
   const handleRemoveEvent = e => {
     e.preventDefault()
+    const eventId = event.id
+    deleteAnInterest(eventId)
     setSavedEventsList(savedEventsList.filter(savedEvent => savedEvent.id !== event.id))
   }
 
   useEffect(() => {
     getEventDetails()
     getLocation()
+    getSavedEvents()
   }, [])
 
-  let button = <input className='button' type='button' value='Interested? Add this concert to your list!' onClick={handleSaveEvent} />
-  if (alreadyExists) {
-    button = <input className='button' type='button' value='Remove from your list' onClick={handleRemoveEvent} />
+  let button
+  if (alreadyExists()) {
+    button = <input className='button' type='button' value='Remove from your list' onClick={handleRemoveEvent} /> 
+  }else{
+    button = <input className='button' type='button' value='Interested? Add this concert to your list!' onClick={handleSaveEvent} />
   }
 
   const date = new Date(event.date)

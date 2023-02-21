@@ -48,6 +48,34 @@ class User extends uniqueFunc(Model) {
 
     return serializedJson;
   }
+
+  static get relationMappings() {
+    const { Event, Interest } = require('./index.js')
+
+    return {
+      events: {
+        relation: Model.ManyToManyRelation,
+        modelClass: Event,
+        join: {
+          from: 'users.id',
+          through: {
+            from: 'interests.userId',
+            to: 'interests.eventId'
+          },
+          to: 'events.id'
+        }
+      },
+      interests: {
+        relation: Model.HasManyRelation,
+        modelClass: Interest,
+        join: {
+          from: 'users.id',
+          to: 'interests.userId'
+        }
+
+      }
+    }
+  }
 }
 
 module.exports = User;

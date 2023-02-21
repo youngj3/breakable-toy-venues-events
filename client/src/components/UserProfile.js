@@ -18,6 +18,7 @@ const UserProfile = props => {
       }
       const body = await response.json()
       setUser(body.user)
+      setSavedEventsList(body.interests)
       } catch (error) {
         console.error(`error in fetch: ${error}`)
       }

@@ -39,7 +39,8 @@ usersRouter.patch("/", uploadImage.single("image"), async(req, res) => {
 usersRouter.get("/:id", async (req, res) => {
   try {
     const user = await User.query().findById(req.user.id)
-    return res.status(200).json({ user })
+    const interests = await user.$relatedQuery("events")
+    return res.status(200).json({ user, interests })
   }catch(error) {
     console.error(error)
   }
