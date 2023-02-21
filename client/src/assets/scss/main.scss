@@ -145,15 +145,25 @@ a:hover, a:active, a:focus {
 }
 
 .footer.right {
-  justify-content:end
+  display: flex;
+  justify-content: flex-end;
+  
 }
 
 .footer-img {
-  height: 100px;
-  justify-content: right;
+  height: 50px;
 }
 
 .landing-page-events-list {
   display: flex;
   flex-wrap: wrap
+}
+
+.events-user-profile {
+  display: flex;
+  flex-wrap: wrap
+}
+
+.my-name {
+  margin-bottom: 20px;
 }

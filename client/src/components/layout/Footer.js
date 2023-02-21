@@ -7,9 +7,12 @@ const Footer = () => {
     <div className='footer'>
       <div className='grid-x'>
         <div className='footer left callout medium-6'>
-          <h3 className='my-name'>Created by: James Young</h3>
+          
         </div>
         <div className='footer right callout medium-6'>
+          <div className='my-name'>
+            <p><br/>Created by: <b>James Young</b></p>
+          </div>
           <a href='https://github.com/youngj3'>{image}</a>
         </div>
       </div>

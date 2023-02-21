@@ -47,16 +47,24 @@ const UserProfile = props => {
   }
 
   return(
-    <div className="user-info">
-      <div>
-        <img src={user.image} />
-        <h3>Welcome, {user.userName}</h3>
-        <input className='button' type='button' value='Change Profile Picture?' onClick={handlePictureClick}/>
+    <div>
+      <div className="centered-content">
+        <div className="grid-x">
+          <div className="user-page-left callout secondary medium-6">
+            <img src={user.image} className="show-page-image"/>
+            <input className='button' type='button' value='Change Profile Picture?' onClick={handlePictureClick}/>
+          </div>
+          <div className="user-page-right callout secondary medium-6">
+            <h1>Welcome back, {user.userName}</h1>
+            <p>{user.firstName}, {user.lastName}</p>
+            <p>{user.email}</p>
+          </div>
+        </div>
         {showDropZone}
       </div>
-      <div>
-        <h2>Your saved Events</h2>
-        <div>
+      <div className="centered-content">
+        <h2>Your saved Events:</h2>
+        <div className="events-user-profile">
           {eventsAsReactTiles}
         </div>
       </div>
