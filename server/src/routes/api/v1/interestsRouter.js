@@ -1,5 +1,5 @@
 import express from 'express'
-import { Interest, User } from '../../../models/index.js'
+import { Interest, User, Event } from '../../../models/index.js'
 
 const interestsRouter = new express.Router()
 
@@ -34,6 +34,20 @@ interestsRouter.delete('/:eventId', async (req, res) => {
     const interest = await Interest.query().findOne({userId: userId, eventId: eventId})
     await Interest.query().deleteById(interest.id)
     return res.status(204).json({message: 'deletion success'})
+  } catch(error) {
+		return res.status(500).json({errors: error})
+	}
+})
+
+interestsRouter.get('/popular', async (req, res) => {
+  const popularEvents = []
+  try{
+    const commonInterests = await Interest.query().select('eventId').groupBy('eventId').count('id').orderBy('count', 'desc').limit(3)
+    for (const interest of commonInterests){
+      const popularEvent = await Event.query().findById(interest.eventId)
+      popularEvents.push(popularEvent)
+    }
+    res.status(200).json({popularEvents})
   } catch(error) {
 		return res.status(500).json({errors: error})
 	}
