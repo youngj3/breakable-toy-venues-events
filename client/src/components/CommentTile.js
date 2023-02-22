@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import EditCommentForm from "./EditCommentForm.js";
 
 const CommentTile = props => {
-  const { comment, currentUser } = props
+  const { comment, currentUser, event, setEvent } = props
   const userId = comment.userId
 
   const [showEditForm, setShowEditForm] = useState(false)
@@ -11,6 +11,9 @@ const CommentTile = props => {
   if(showEditForm) {
     editForm = <EditCommentForm
       comment={comment}
+      event={event}
+      setEvent={setEvent}
+      setShowEditForm={setShowEditForm}
     />
   }
 
@@ -42,7 +45,7 @@ const CommentTile = props => {
       <p>{comment.text}</p>
       {editButton}
       {deleteButton}
-      {}
+      {editForm}
     </div>
   )
 }

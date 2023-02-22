@@ -107,6 +107,8 @@ const EventShowPage = (props) => {
       key={comment.id}
       comment={comment}
       currentUser={currentUser}
+      event={event}
+      setEvent={setEvent}
       />
     )
   })

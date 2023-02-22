@@ -4,12 +4,13 @@ import { useParams } from "react-router-dom"
 import translateServerErrors from '../services/translateServerErrors.js'
 
 const EditCommentForm = props => {
-  const { comment } = props
+  const { comment, event, setEvent, setShowEditForm } = props
   const commentId = comment.id
+  const eventId = event.id
   const venueId = useParams().venueId
   console.log('venueID', venueId)
   const [editedComment, setEditedComment] = useState({
-    text: text
+    text: comment.text
   })
   const [errors, setErrors] = useState({})
 
@@ -45,9 +46,17 @@ const EditCommentForm = props => {
     })
   }
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault()
-    console.log('submitted? psych lol')
+    const freshlyEditedComment = await editComment(editedComment)
+    const editedComments = event.comments
+    const updateId = editedComments.findIndex(element => element.id === commentId)
+    editedComments[updateId] = freshlyEditedComment
+    setEvent({
+      ...event,
+      comments: editedComments
+    })
+    setShowEditForm(false)
   }
 
   return (
