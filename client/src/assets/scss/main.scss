@@ -51,12 +51,18 @@ a:hover, a:active, a:focus {
 }
 
 .event-tile {
-  align-content: center;
-  width: 25%;
-  margin: 0em auto 2em;
-  border-width: 1px;
-  border-color: black;
-  border-radius: 20px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 2px 1px 1px #d7263d;
+  margin-right: 10px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  width: 250px;
+}
+
+.event-tile-picture {
+  object-fit: cover;
+  height: 100px;
 }
 
 .venue-tile:hover {
@@ -115,4 +121,49 @@ a:hover, a:active, a:focus {
   color: #e9e3e6;
   z-index: 10;
   user-select: none;
+}
+
+.callout {
+  border: none;
+}
+
+.callout.secondary {
+  background-color: white;
+}
+
+.show-page-image {
+  height: 300px;
+  border-radius: 1rem;
+}
+
+.e-show-page-right {
+  margin-top: 50px;
+}
+
+.footer {
+  background-color: #d7263d;
+}
+
+.footer.right {
+  display: flex;
+  justify-content: flex-end;
+  
+}
+
+.footer-img {
+  height: 50px;
+}
+
+.landing-page-events-list {
+  display: flex;
+  flex-wrap: wrap
+}
+
+.events-user-profile {
+  display: flex;
+  flex-wrap: wrap
+}
+
+.my-name {
+  margin-bottom: 20px;
 }

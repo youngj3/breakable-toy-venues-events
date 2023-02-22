@@ -80,7 +80,7 @@ const HomePageBanner = () => {
     const imagesToSlide = CarouselData
     return <img src={`${imagesToSlide[index].image}`} className="slide short-image" />
   };
-
+  
   return (
     <div className="slider">
       {prevBtn()}
