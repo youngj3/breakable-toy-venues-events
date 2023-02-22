@@ -98,14 +98,11 @@ const EventShowPage = (props) => {
     />
   }
 
-  let button
-  if(currentUser === undefined){
-    button = ""
-  } else {
-    if (currentUser && alreadyExists()) {
+  let button = ""
+  if(currentUser !== null){
+    if (alreadyExists()) {
       button = <input className='button' type='button' value='Remove from your list' onClick={handleRemoveEvent} /> 
     }else{
-      if (currentUser && !alreadyExists())
       button = <input className='button' type='button' value='Interested? Add this concert to your list!' onClick={handleSaveEvent} />
     }
   }
