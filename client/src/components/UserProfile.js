@@ -37,7 +37,8 @@ const UserProfile = props => {
     return (
       <EventTile
         key={event.id}
-        event={event}/>
+        event={event}
+      />
     )
   })
 
