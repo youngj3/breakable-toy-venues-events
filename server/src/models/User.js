@@ -50,7 +50,7 @@ class User extends uniqueFunc(Model) {
   }
 
   static get relationMappings() {
-    const { Event, Interest } = require('./index.js')
+    const { Event, Interest, Comment } = require('./index.js')
 
     return {
       events: {
@@ -72,7 +72,14 @@ class User extends uniqueFunc(Model) {
           from: 'users.id',
           to: 'interests.userId'
         }
-
+      },
+      comments: {
+        relation: Model.HasManyRelation,
+        modelClass: Comment,
+        join: {
+          from: 'users.id',
+          to: 'comments.userId'
+        }
       }
     }
   }
