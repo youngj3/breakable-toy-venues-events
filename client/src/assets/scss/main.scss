@@ -167,3 +167,25 @@ a:hover, a:active, a:focus {
 .my-name {
   margin-bottom: 20px;
 }
+
+.comment-tile {
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: 2px 1px 1px #d7263d;
+  margin-right: 20px;
+  margin-left: 20px;
+  margin-bottom: 10px;
+  overflow: auto;
+  max-width: 300px;
+  overflow-wrap: break-word;
+}
+
+.comment-image {
+  height: 2.5rem;
+  border-radius: 50%;
+}
+
+.comment-list {
+  display: flex;
+  flex-wrap: wrap;
+}

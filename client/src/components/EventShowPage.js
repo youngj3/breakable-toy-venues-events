@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import createAnInterest from '../../../server/src/services/createAnInterest.js'
 import deleteAnInterest from '../../../server/src/services/deleteAnInterest.js'
+import CommentTile from './CommentTile.js'
 
 const EventShowPage = (props) => {
   const venueId = props.match.params.venueId
@@ -18,7 +19,8 @@ const EventShowPage = (props) => {
     date: "",
     priceRange: "",
     description: "",
-    venueId: ""
+    venueId: "",
+    comments: []
   })
 
   const alreadyExists = () => {
@@ -60,6 +62,7 @@ const EventShowPage = (props) => {
       const body = await response.json()
       setSavedEventsList(body.savedEvents)
     } catch(error) {
+      console.log(error)
 			console.error(`Error in fetch: ${error.message}`)
 		}
   }
@@ -98,6 +101,15 @@ const EventShowPage = (props) => {
     }
   }
 
+  const commentsAsReact = event.comments.map(comment => {
+    return (
+      <CommentTile 
+      key={comment.id}
+      comment={comment}
+      currentUser={currentUser}
+      />
+    )
+  })
   const date = new Date(event.date)
   const readableDate = date.toString().substring(0,21)
 
@@ -120,6 +132,9 @@ const EventShowPage = (props) => {
             <p>{event.description}</p>
             </div>
 					</div>
+          <div className='comment-list'>
+              {commentsAsReact}
+          </div>
 				</div>
 			</div>
   )
