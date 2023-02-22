@@ -14,9 +14,11 @@ const VenueList = props => {
         throw new Error(`${response.status} (${response.statusText})`)
       } else {
         const body = await response.json()
+        console.log(body)
         setVenueList(body.venues)
       }
     } catch(error) {
+      console.log(error)
       console.error(`Error in fetch: ${error.message}`)
     }
   }

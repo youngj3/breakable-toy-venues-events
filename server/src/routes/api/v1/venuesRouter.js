@@ -7,7 +7,11 @@ const venuesRouter = new express.Router()
 
 venuesRouter.get('/', async (req, res) => {
   try{
-    const venues = await Venue.query()
+    console.log(req.query)
+    console.log(req.params)
+    console.log(req)
+    const { state } = req.params
+    const venues = await Venue.query().where('state', `${state}`)
     const serializedVenues = VenueSerializer.getDetailsForIndex(venues)
     return res.status(200).json({venues: serializedVenues})
   } catch(error) {
@@ -16,8 +20,8 @@ venuesRouter.get('/', async (req, res) => {
 })
 
 venuesRouter.get('/:id', async (req,res) => {
-  const venueId = req.params.id
   try{
+    const venueId = req.params.id
     const venue = await Venue.query().findById(venueId)
     const serializedVenue = await VenueSerializer.getDetailsForShow(venue)
     return res.status(200).json({venue: serializedVenue})
