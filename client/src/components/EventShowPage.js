@@ -3,6 +3,7 @@ import createAnInterest from '../../../server/src/services/createAnInterest.js'
 import deleteAnInterest from '../../../server/src/services/deleteAnInterest.js'
 import CommentTile from './CommentTile.js'
 import NewCommentForm from './NewCommentForm.js'
+import Popup from 'reactjs-popup'
 
 const EventShowPage = (props) => {
   const venueId = props.match.params.venueId
@@ -23,6 +24,7 @@ const EventShowPage = (props) => {
     venueId: "",
     comments: []
   })
+  const [showPopup, setShowPopup] = useState(false);
 
   const alreadyExists = () => {
     return savedEventsList.some(savedEvent => savedEvent.id === event.id);
@@ -90,12 +92,28 @@ const EventShowPage = (props) => {
     getSavedEvents()
   }, [])
 
+  const togglePopup = e => {
+    setShowPopup(showPopup ? false : true)
+  }
+
   let newComment
   if (currentUser) {
-    newComment = <NewCommentForm 
-    event={event}
-    setEvent={setEvent}
-    />
+    newComment = (
+      <>
+      <input className='button' type='button' value="Add to the Discourse!" onClick={togglePopup}/>
+      <Popup
+        open={showPopup}
+      >
+        <div className='popup'>
+        <NewCommentForm 
+          event={event}
+          setEvent={setEvent}
+          togglePopup={togglePopup}
+          />
+        </div>
+      </Popup>
+      </>
+     ) 
   }
 
   let button = ""

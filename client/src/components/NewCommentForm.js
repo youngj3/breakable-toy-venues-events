@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom"
 import ErrorList from "./layout/ErrorList"
 
-const NewCommentForm = ({event, setEvent}) => {
+const NewCommentForm = ({event, setEvent, togglePopup}) => {
   const venueId = useParams().venueId
   const eventId = event.id
   const [newComment, setNewComment] = useState({
@@ -49,6 +49,7 @@ const NewCommentForm = ({event, setEvent}) => {
       ...event,
       comments: [...event.comments, newCommentData]
     })
+    togglePopup()
     clearForm()
   }
 
@@ -61,19 +62,24 @@ const NewCommentForm = ({event, setEvent}) => {
 
   return (
     <>
-      <h6>Get in on the discourse!</h6>
+      <h6><b>Get in on the discourse!</b></h6>
       <form onSubmit={handleSubmit} className="comment-form">
         <ErrorList errors={errors} />
         <label htmlFor="text" >
-          Your Thoughts on {event.name}:
-          <textarea
+          Your Thoughts on "{event.name}":
+        </label>
+        <textarea
+            className="comment-form-input"
             name="text"
             id="text"
             onChange={handleInputChange}
             value={newComment.text}
           />
-        </label>
-        <input className='button' type='submit' value='Submit' />
+          <br />
+          <div className="comment-form-buttons">
+            <input className='button' type='submit' value='Submit' />
+            <input className='button' type='submit' value='Close' onClick={togglePopup}/>
+          </div>
       </form>
     </>
   )

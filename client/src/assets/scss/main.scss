@@ -189,3 +189,22 @@ a:hover, a:active, a:focus {
   display: flex;
   flex-wrap: wrap;
 }
+
+.popup {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  background-color: #d7263d;
+  height: 12rem;
+  width: 30rem;
+  border-radius: 20px;
+}
+
+textarea#text.comment-form-input {
+  margin: 0px;
+}
+
+.comment-form-buttons {
+  display: flex;
+  justify-content: center;
+}
