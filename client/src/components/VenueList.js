@@ -9,7 +9,8 @@ const VenueList = props => {
 
   const getVenues = async () => {
     try{
-      const response = await fetch("/api/v1/venues")
+      const searchQuery = props.location.search
+      const response = await fetch(`/api/v1/venues${searchQuery}`)
       if (!response.ok) {
         throw new Error(`${response.status} (${response.statusText})`)
       } else {
