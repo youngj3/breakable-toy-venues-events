@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import createAnInterest from '../../../server/src/services/createAnInterest.js'
 import deleteAnInterest from '../../../server/src/services/deleteAnInterest.js'
 import CommentTile from './CommentTile.js'
+import NewCommentForm from './NewCommentForm.js'
 
 const EventShowPage = (props) => {
   const venueId = props.match.params.venueId
@@ -89,6 +90,14 @@ const EventShowPage = (props) => {
     getSavedEvents()
   }, [])
 
+  let newComment
+  if (currentUser) {
+    newComment = <NewCommentForm 
+    event={event}
+    setEvent={setEvent}
+    />
+  }
+
   let button
   if(currentUser === undefined){
     button = ""
@@ -134,6 +143,7 @@ const EventShowPage = (props) => {
             <p>{event.description}</p>
             </div>
 					</div>
+          {newComment}
           <div className='comment-list'>
               {commentsAsReact}
           </div>

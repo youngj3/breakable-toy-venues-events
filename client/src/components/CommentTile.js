@@ -50,8 +50,6 @@ const CommentTile = props => {
     deleteComment(commentId)
   }
 
-
-
   let editButton = ""
   if(currentUser && currentUser.id === userId) {
     editButton = <input className="button" type="button" value="Edit" onClick={editClickHandler} />
