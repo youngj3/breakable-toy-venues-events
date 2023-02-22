@@ -3,6 +3,7 @@ import { Venue } from "../../models/index.js";
 
 class VenueSeeder {
   static async seed(){
+    //const statesToSeed = ['Ma', 'RI', 'CT', 'NY']
     const venuesToBeSeeded = await TicketMaster.organizeVenues()
 
     for (const venue of venuesToBeSeeded){
