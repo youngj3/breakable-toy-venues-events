@@ -1,10 +1,13 @@
 import React, { useState } from "react";
+import { useParams } from "react-router-dom";
 import EditCommentForm from "./EditCommentForm.js";
 
 const CommentTile = props => {
   const { comment, currentUser, event, setEvent } = props
   const userId = comment.userId
-
+  const eventId = event.id
+  const commentId =  comment.id
+  const venueId = useParams().venueId
   const [showEditForm, setShowEditForm] = useState(false)
 
   let editForm
@@ -17,14 +20,34 @@ const CommentTile = props => {
     />
   }
 
+  const deleteComment = async (commentId) => {
+    try {
+      const response = await fetch(`/api/v1/venues/${venueId}/events/${eventId}/comments/${commentId}`, {
+        method: "DELETE",
+        headers: new Headers({
+          "Content-Type": "application/json"
+        })
+      })
+      if (!response.ok) {
+				throw new Error(`${response.status} (${response.statusText})`)
+			}
+      setEvent({
+        ...event,
+        comments: event.comments.filter(comment => comment.id !== commentId)
+      })
+    } catch(error) {
+			console.error(`Error in fetch: ${error.message}`)
+		}
+  }
 
   const editClickHandler = e => {
+    e.preventDefault()
     setShowEditForm(true)
-    console.log('edit')
   }
 
   const handleDeleteClick = e => {
-    console.log('lol')
+    e.preventDefault()
+    deleteComment(commentId)
   }
 
 

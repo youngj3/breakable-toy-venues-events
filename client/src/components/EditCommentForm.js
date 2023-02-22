@@ -8,7 +8,7 @@ const EditCommentForm = props => {
   const commentId = comment.id
   const eventId = event.id
   const venueId = useParams().venueId
-  console.log('venueID', venueId)
+
   const [editedComment, setEditedComment] = useState({
     text: comment.text
   })

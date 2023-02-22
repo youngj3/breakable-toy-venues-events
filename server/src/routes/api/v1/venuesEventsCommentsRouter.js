@@ -8,7 +8,6 @@ const venuesEventsCommentsRouter = new express.Router({mergeParams: true})
 
 venuesEventsCommentsRouter.patch('/:commentId', async (req, res) => {
   const body = req.body
-  // const userId = req.user.id
   body.id = req.params.commentId
   const formInput = cleanUserInput(body)
   try{
@@ -23,6 +22,15 @@ venuesEventsCommentsRouter.patch('/:commentId', async (req, res) => {
     }
     return res.status(500).json({errors: error})
   }
+})
+
+venuesEventsCommentsRouter.delete('/:commentId', async (req, res) => {
+  try {
+    await Comment.query().deleteById(req.params.commentId)
+    return res.status(204).json({message: 'deletion success'})
+  } catch(error) {
+		return res.status(500).json({errors: error})
+	}
 })
 
 export default venuesEventsCommentsRouter
