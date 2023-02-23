@@ -14,14 +14,15 @@ const EventShowPage = (props) => {
   
   const [ venueName, setVenueName ] = useState("")
   const [ event, setEvent ] = useState({
-    id: "",
+  //  id: "",
+    exactId: "",
     name: "",
     image: "",
     genre: "",
     date: "",
     priceRange: "",
-    description: "",
-    venueId: "",
+  // description: "",
+    venueId: venueId,
     comments: []
   })
   const [showPopup, setShowPopup] = useState(false);
@@ -74,7 +75,7 @@ const EventShowPage = (props) => {
   const handleSaveEvent = e => {
     e.preventDefault()
     if (!alreadyExists()) {
-      const eventId = event.id
+      const eventId = event.exactId
       createAnInterest(eventId)
       setSavedEventsList([...savedEventsList, event])
     }
@@ -82,7 +83,7 @@ const EventShowPage = (props) => {
 
   const handleRemoveEvent = e => {
     e.preventDefault()
-    const eventId = event.id
+    const eventId = event.exactId
     deleteAnInterest(eventId)
     setSavedEventsList(savedEventsList.filter(savedEvent => savedEvent.id !== event.id))
   }
@@ -126,7 +127,7 @@ const EventShowPage = (props) => {
     }
   }
 
-  const commentsAsReact = event.comments.map(comment => {
+  const commentsAsReact = event.comments?.map(comment => {
     return (
       <CommentTile 
       key={comment.id}

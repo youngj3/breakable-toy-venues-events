@@ -2,14 +2,14 @@ import React from 'react'
 import { Link } from "react-router-dom";
 
 const VenueTile = ({venue}) => {
-  const {id, name, city, state, image} = venue
+  const {id, name, city, state, image, exactId} = venue
 
   let venueImage
 	if (image) {
 		venueImage = <img className="card-img" src={image}/>
 	}
 
-  const nameLink = <Link to={`/venues/${id}`}>{name}</Link>
+  const nameLink = <Link to={`/venues/${exactId}`}>{name}</Link>
 
   return (
     <div className='venue-tile'>

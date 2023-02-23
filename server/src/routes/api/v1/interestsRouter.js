@@ -1,15 +1,26 @@
 import express from 'express'
+import TicketMaster from '../../../../apiClient/TicketMaster.js'
 import { Interest, User, Event } from '../../../models/index.js'
 
 const interestsRouter = new express.Router()
 
 interestsRouter.post('/', async (req, res) => {
-  const { body } = req
-  body.userId = req.user.id
+  const eventId = req.body.eventId
+  const userId = req.user.id
   try {
-    await Interest.query().insertAndFetch(body)
+    const doesItExist = await Event.query().findOne({exactId: eventId})
+    if (!doesItExist) {
+      const eventForInsertion = await TicketMaster.prepareEventForShowPage(eventId)
+      console.log(eventForInsertion)
+      await Event.query().insert(eventForInsertion)
+      const localEvent = await Event.query().findOne({exactId: eventId})
+      const localEventId = localEvent.id
+    }
+    
+    await Interest.query().insertAndFetch({userId: userId, eventId: localEventId})
     res.status(200).json({message: 'creation success'})
   } catch(error) {
+    console.log(error)
     return res.status(500).json({errors: error})
   }
 })

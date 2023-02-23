@@ -10,7 +10,7 @@ const openai = new OpenAi(apiKey)
 class EventSeeder {
   static async seed() {
     const venues = await Venue.query()
-    const basePrompt = "Write a description for this concert: "
+    const basePrompt = "Write a description for this concert (maxtokens 150): "
 
     for (let i = 0; i < venues.length; i++) {
       let searchId = venues[i].exactId

@@ -15,11 +15,9 @@ const VenueList = props => {
         throw new Error(`${response.status} (${response.statusText})`)
       } else {
         const body = await response.json()
-        console.log(body)
         setVenueList(body.venues)
       }
     } catch(error) {
-      console.log(error)
       console.error(`Error in fetch: ${error.message}`)
     }
   }
@@ -31,7 +29,7 @@ const VenueList = props => {
   const venuesAsReact = currentVenues.map(venue => {
     return (
       <VenueTile 
-      key={venue.id}
+      key={venue.exactId}
       venue={venue}
       />
     )
@@ -51,9 +49,9 @@ const VenueList = props => {
 
   return (
     <div>
-      <img src={boston} className="venue-list-header" />
+      {/* <img src={boston} className="venue-list-header" /> */}
       <div className='centered-content'>
-        <h1 className='venue-list-title'>Major Mass Venues:</h1>
+        <h1 className='venue-list-title'>Major Venues</h1>
         <input className='button' type='button' value='Previous' onClick={goToPreviousPage} disabled={currentPage === 1}/>
         <input className='button' type='button' value='   Next   ' onClick={goToNextPage} disabled={currentVenues.length < itemsPerPage} />
         <div className='venue-list'>

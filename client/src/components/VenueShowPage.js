@@ -13,6 +13,7 @@ const VenueShowPage = props => {
     image: "",
     address: "",
     postalCode: "",
+    location: {},
     events: []
   })
 
@@ -23,7 +24,7 @@ const VenueShowPage = props => {
 				throw new Error(`${response.status} (${response.statusText})`)
 			}
 			const venueInformation = await response.json()
-      console.log('stop going here')
+      console.log(venueInformation)
       setVenue(venueInformation.venue)
     } catch(error) {
 			console.error(`Error in fetch: ${error.message}`)
@@ -42,7 +43,8 @@ const VenueShowPage = props => {
     return (
       <EventTile
         key={event.id}
-        event={event}/>
+        event={event}
+        venueId={venueId}/>
     )
   })
 
@@ -66,7 +68,7 @@ const VenueShowPage = props => {
             <img src={venue.image} className='show-page-image' />
           </div>
           <div className="v-show-page-left callout secondary medium-6">
-            <SimpleJsApiLoaderGoogleMap location={fullAddress} />
+            <SimpleJsApiLoaderGoogleMap location={venue.location} />
           </div>
         </div>
         </div>

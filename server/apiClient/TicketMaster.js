@@ -8,13 +8,53 @@ const baseUrl = 'https://app.ticketmaster.com/discovery/v2/';
 
 class TicketMaster {
 
+  static async fetchResponseData (url) {
+    const apiResponse = await got(url)
+    const responseBody = apiResponse.body
+    return JSON.parse(responseBody)
+  }
+
+  static async fetchSingleVenue(exactId) {
+    try {
+      const url = `${baseUrl}/venues?id=${exactId}&apikey=${apiKey}`
+      const apiData = await this.fetchResponseData(url)
+      return apiData
+    } catch (error) {
+      return { error: error.message };
+    }
+  }
+
+  static async prepareVenueForShowPage(exactId) {
+    try {
+      const venueData = await this.fetchSingleVenue(exactId)
+      const easyAccessVenueData = venueData._embedded.venues
+      const venue = easyAccessVenueData.map(venue => {
+        let returnImage = ""
+        let image = venue.images
+        if (image !== undefined) {
+          returnImage = Object.values(image[0])[1]
+        }
+        return { 
+          name: venue.name,
+          exactId: venue.id, 
+          image: returnImage,
+          city: venue.city.name, 
+          state: venue.state.stateCode, 
+          address: venue.address.line1,
+          postalCode: venue.postalCode,
+          location: venue.location 
+        }
+      })
+      return venue[0]
+    } catch (error) {
+      return { error: error.message };
+    }
+  }
+
   static async fetchVenues(stateCode) {
     try {
       const url = `${baseUrl}/venues?stateCode=${stateCode}&apikey=${apiKey}`
-      const apiResponse = await got(url)
-      const responseBody = apiResponse.body
-      const apiData = JSON.parse(responseBody)
-
+      const apiData = await this.fetchResponseData(url)
       return apiData
     } catch (error) {
       return { error: error.message };
@@ -22,34 +62,33 @@ class TicketMaster {
   }
 
   static async organizeVenues(stateCode) {
-    const venueData = await TicketMaster.fetchVenues(stateCode)
-    const easyAccessVenueData = venueData._embedded.venues
-    const venues = easyAccessVenueData.map(venue => {
-      let returnImage = ""
-      let image = venue.images
-      if (image !== undefined) {
-        returnImage = Object.values(image[0])[1]
-      }
-      return { 
-        name: venue.name,
-        exactId: venue.id, 
-        image: returnImage, 
-        city: venue.city.name, 
-        state: venue.state.stateCode, 
-        address: venue.address.line1,
-        postalCode: venue.postalCode
-      }
-    })
-    return venues
+    try {
+      const venueData = await this.fetchVenues(stateCode)
+      const easyAccessVenueData = venueData._embedded.venues
+      const venues = easyAccessVenueData.map(venue => {
+        let returnImage = ""
+        let image = venue.images
+        if (image !== undefined) {
+          returnImage = Object.values(image[0])[1]
+        }
+        return { 
+          name: venue.name,
+          exactId: venue.id, 
+          image: returnImage, 
+          city: venue.city.name, 
+          state: venue.state.stateCode,
+        }
+      })
+      return venues
+    } catch (error) {
+      return { error: error.message };
+    }
   }
 
   static async fetchRelatedEvents(exactId) {
     try {
       const url = `${baseUrl}/events?venueId=${exactId}&classificationName=music&apikey=${apiKey}`
-      const apiResponse = await got(url)
-      const responseBody = apiResponse.body
-      const apiData = JSON.parse(responseBody)
-
+      const apiData = await this.fetchResponseData(url)
       return apiData
     } catch (error) {
       return { error: error.message };
@@ -66,6 +105,37 @@ class TicketMaster {
 
     const events = someData._embedded.events
     const organizedEvents = events.map(event => {
+      let returnImage
+      let image = event.images
+      if (image !== undefined) {
+        returnImage = Object.values(image[0])[1]
+      } else {
+        returnImage = ""
+      }
+
+      return {
+        name: event.name,
+        exactId: event.id,
+        image: returnImage,
+      }
+    })
+    return organizedEvents
+  }
+
+  static async fetchEventForShowPage (eventId) {
+    try {
+      const url = `${baseUrl}/events?id=${eventId}&apikey=${apiKey}`
+      const eventData = await this.fetchResponseData(url)
+      return eventData
+    } catch (error) {
+      return { error: error.message };
+    }
+  }
+
+  static async prepareEventForShowPage (eventId) {
+    try {
+      const eventData = await this.fetchEventForShowPage(eventId)
+      const event = eventData._embedded.events.map(event => {
       let lowPrice
       let highPrice
 
@@ -87,14 +157,17 @@ class TicketMaster {
 
       return {
         name: event.name,
-        id: event.id,
+        exactId: event.id,
         image: returnImage,
         date: event.dates.start.dateTime,
         genre: event.classifications[0].genre.name,
         priceRange: `${lowPrice} - ${highPrice}`
       }
-    })
-    return organizedEvents
+      })
+      return event[0]
+    } catch (error) {
+      return { error: error.message };
+    }
   }
 }
 
