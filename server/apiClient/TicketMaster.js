@@ -8,9 +8,9 @@ const baseUrl = 'https://app.ticketmaster.com/discovery/v2/';
 
 class TicketMaster {
 
-  static async fetchVenues() {
+  static async fetchVenues(stateCode) {
     try {
-      const url = `${baseUrl}/venues?stateCode=MA&apikey=${apiKey}`
+      const url = `${baseUrl}/venues?stateCode=${stateCode}&apikey=${apiKey}`
       const apiResponse = await got(url)
       const responseBody = apiResponse.body
       const apiData = JSON.parse(responseBody)
@@ -21,8 +21,8 @@ class TicketMaster {
     }
   }
 
-  static async organizeVenues() {
-    const venueData = await TicketMaster.fetchVenues()
+  static async organizeVenues(stateCode) {
+    const venueData = await TicketMaster.fetchVenues(stateCode)
     const easyAccessVenueData = venueData._embedded.venues
     const venues = easyAccessVenueData.map(venue => {
       let returnImage = ""
@@ -87,6 +87,7 @@ class TicketMaster {
 
       return {
         name: event.name,
+        id: event.id,
         image: returnImage,
         date: event.dates.start.dateTime,
         genre: event.classifications[0].genre.name,
