@@ -57,17 +57,18 @@ const EventShowPage = (props) => {
   }
 
   const getSavedEvents = async () => {
-    try{
-      const response = await fetch('/api/v1/interests')
-      if (!response.ok) {
-				throw new Error(`${response.status} (${response.statusText})`)
-			}
-      const body = await response.json()
-      setSavedEventsList(body.savedEvents)
-    } catch(error) {
-      console.log(error)
-			console.error(`Error in fetch: ${error.message}`)
-		}
+    if (currentUser) {
+      try{
+        const response = await fetch('/api/v1/interests')
+        if (!response.ok) {
+          throw new Error(`${response.status} (${response.statusText})`)
+        }
+        const body = await response.json()
+        setSavedEventsList(body.savedEvents)
+      } catch(error) {
+        console.error(`Error in fetch: ${error.message}`)
+      }
+    }
   }
   
   const handleSaveEvent = e => {
@@ -136,9 +137,9 @@ const EventShowPage = (props) => {
       />
     )
   })
+
   const date = new Date(event.date)
   const readableDate = date.toString().substring(0,21)
-
   return (
     <div>
 				<div className="centered-content">

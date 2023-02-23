@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import EditCommentForm from "./EditCommentForm.js";
+import { parseISO } from 'date-fns'
 
 const CommentTile = props => {
   const { comment, currentUser, event, setEvent } = props
@@ -60,8 +61,13 @@ const CommentTile = props => {
     deleteButton = <input className='button' type='button' value='Delete' onClick={handleDeleteClick}/>
   }
 
+  const date = comment.createdAt
+  const readable = parseISO(date)
+  const readableDate = readable.toString().substring(0,21)
+
   return (
     <div className="comment-tile callout"> 
+      <p><small>{readableDate}</small></p>
       <p><img src={comment.image} className='comment-image'/>@{comment.userName}</p>
       <p>{comment.text}</p>
       {editButton}

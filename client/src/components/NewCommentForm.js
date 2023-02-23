@@ -62,8 +62,8 @@ const NewCommentForm = ({event, setEvent, togglePopup}) => {
 
   return (
     <>
-      <h6><b>Get in on the discourse!</b></h6>
       <form onSubmit={handleSubmit} className="comment-form">
+        <h6><b>Get in on the discourse!</b></h6>
         <ErrorList errors={errors} />
         <label htmlFor="text" >
           Your Thoughts on "{event.name}":

@@ -47,6 +47,7 @@ a:hover, a:active, a:focus {
 
 .show-page-events-list {
   display: flex;
+  align-items: flex-start;
   flex-wrap: wrap
 }
 
@@ -171,7 +172,7 @@ a:hover, a:active, a:focus {
 .comment-tile {
   background-color: white;
   border-radius: 20px;
-  box-shadow: 2px 1px 1px #d7263d;
+  box-shadow: 2px 1px 1px #006cd1;
   margin-right: 20px;
   margin-left: 20px;
   margin-bottom: 10px;
@@ -187,7 +188,9 @@ a:hover, a:active, a:focus {
 
 .comment-list {
   display: flex;
+  align-items: flex-start;
   flex-wrap: wrap;
+  justify-content: space-around;
 }
 
 .popup {
@@ -202,9 +205,15 @@ a:hover, a:active, a:focus {
 
 textarea#text.comment-form-input {
   margin: 0px;
+  max-height: 2.5rem;
+  max-width: 400px;
 }
 
 .comment-form-buttons {
   display: flex;
   justify-content: center;
+}
+
+.comment-form h6, label {
+  text-align: center;
 }
