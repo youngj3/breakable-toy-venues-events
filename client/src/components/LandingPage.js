@@ -12,7 +12,6 @@ const LandingPage = props => {
         throw new Error(`${response.status} (${response.statusText})`);
       }
       const body = await response.json()
-      console.log(body)
       setPopularEvents(body.popularEvents)
     } catch(error) {
       console.error(`Error in fetch: ${error.message}`)

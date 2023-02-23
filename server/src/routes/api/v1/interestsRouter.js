@@ -15,11 +15,8 @@ interestsRouter.post('/', async (req, res) => {
 })
 
 interestsRouter.get('/', async (req, res) => {
-  if(req.user){
-    const userId = req.user.id
-  }
   try {
-    const user = await User.query().findById(userId)
+    const user = req.user
     const savedEvents = await user.$relatedQuery('events')
     return res.status(200).json({savedEvents: savedEvents})
   } catch(error) {
