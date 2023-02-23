@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import createAnInterest from '../../../server/src/services/createAnInterest.js'
 import deleteAnInterest from '../../../server/src/services/deleteAnInterest.js'
+import CommentTile from './CommentTile.js'
+import NewCommentForm from './NewCommentForm.js'
+import Popup from 'reactjs-popup'
 
 const EventShowPage = (props) => {
   const venueId = props.match.params.venueId
@@ -18,8 +21,10 @@ const EventShowPage = (props) => {
     date: "",
     priceRange: "",
     description: "",
-    venueId: ""
+    venueId: "",
+    comments: []
   })
+  const [showPopup, setShowPopup] = useState(false);
 
   const alreadyExists = () => {
     return savedEventsList.some(savedEvent => savedEvent.id === event.id);
@@ -52,16 +57,18 @@ const EventShowPage = (props) => {
   }
 
   const getSavedEvents = async () => {
-    try{
-      const response = await fetch('/api/v1/interests')
-      if (!response.ok) {
-				throw new Error(`${response.status} (${response.statusText})`)
-			}
-      const body = await response.json()
-      setSavedEventsList(body.savedEvents)
-    } catch(error) {
-			console.error(`Error in fetch: ${error.message}`)
-		}
+    if (currentUser) {
+      try{
+        const response = await fetch('/api/v1/interests')
+        if (!response.ok) {
+          throw new Error(`${response.status} (${response.statusText})`)
+        }
+        const body = await response.json()
+        setSavedEventsList(body.savedEvents)
+      } catch(error) {
+        console.error(`Error in fetch: ${error.message}`)
+      }
+    }
   }
   
   const handleSaveEvent = e => {
@@ -86,6 +93,30 @@ const EventShowPage = (props) => {
     getSavedEvents()
   }, [])
 
+  const togglePopup = e => {
+    setShowPopup(showPopup ? false : true)
+  }
+
+  let newComment
+  if (currentUser) {
+    newComment = (
+      <>
+      <input className='button' type='button' value="Add to the Discourse!" onClick={togglePopup}/>
+      <Popup
+        open={showPopup}
+      >
+        <div className='popup'>
+        <NewCommentForm 
+          event={event}
+          setEvent={setEvent}
+          togglePopup={togglePopup}
+          />
+        </div>
+      </Popup>
+      </>
+     ) 
+  }
+
   let button = ""
   if(currentUser !== null){
     if (alreadyExists()) {
@@ -94,11 +125,21 @@ const EventShowPage = (props) => {
       button = <input className='button' type='button' value='Interested? Add this concert to your list!' onClick={handleSaveEvent} />
     }
   }
-  console.log(savedEventsList)
-  console.log(currentUser)
+
+  const commentsAsReact = event.comments.map(comment => {
+    return (
+      <CommentTile 
+      key={comment.id}
+      comment={comment}
+      currentUser={currentUser}
+      event={event}
+      setEvent={setEvent}
+      />
+    )
+  })
+
   const date = new Date(event.date)
   const readableDate = date.toString().substring(0,21)
-
   return (
     <div>
 				<div className="centered-content">
@@ -118,6 +159,10 @@ const EventShowPage = (props) => {
             <p>{event.description}</p>
             </div>
 					</div>
+          {newComment}
+          <div className='comment-list'>
+              {commentsAsReact}
+          </div>
 				</div>
 			</div>
   )
