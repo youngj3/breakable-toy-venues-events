@@ -14,21 +14,22 @@ const EventShowPage = (props) => {
   
   const [ venueName, setVenueName ] = useState("")
   const [ event, setEvent ] = useState({
-  //  id: "",
+    id: "",
     exactId: "",
     name: "",
     image: "",
     genre: "",
     date: "",
     priceRange: "",
-  // description: "",
+    description: "",
     venueId: venueId,
     comments: []
   })
+
   const [showPopup, setShowPopup] = useState(false);
 
   const alreadyExists = () => {
-    return savedEventsList.some(savedEvent => savedEvent.id === event.id);
+    return savedEventsList.some(savedEvent => savedEvent.exactId === eventId);
   }
     
   const getEventDetails = async () => {
@@ -76,7 +77,7 @@ const EventShowPage = (props) => {
     e.preventDefault()
     if (!alreadyExists()) {
       const eventId = event.exactId
-      createAnInterest(eventId)
+      createAnInterest(eventId, venueId)
       setSavedEventsList([...savedEventsList, event])
     }
   }
@@ -85,13 +86,14 @@ const EventShowPage = (props) => {
     e.preventDefault()
     const eventId = event.exactId
     deleteAnInterest(eventId)
-    setSavedEventsList(savedEventsList.filter(savedEvent => savedEvent.id !== event.id))
+    setSavedEventsList(savedEventsList.filter(savedEvent => savedEvent.exactId !== eventId))
   }
 
   useEffect(() => {
+    // these could all be done in one fetch requests
+    getSavedEvents()
     getEventDetails()
     getLocation()
-    getSavedEvents()
   }, [])
 
   const togglePopup = e => {
@@ -108,6 +110,7 @@ const EventShowPage = (props) => {
       >
         <div className='popup'>
         <NewCommentForm 
+          venueId={venueId}
           event={event}
           setEvent={setEvent}
           togglePopup={togglePopup}

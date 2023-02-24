@@ -1,4 +1,4 @@
-const deleteAnInterest = async (eventId, setSavedEventsList, savedEventsList) => {
+const deleteAnInterest = async (eventId) => {
   try {
     const response = await fetch(`/api/v1/interests/${eventId}`, {
       method: "DELETE",
@@ -9,7 +9,6 @@ const deleteAnInterest = async (eventId, setSavedEventsList, savedEventsList) =>
     if (!response.ok) {
 			throw new Error(`${response.status} (${response.statusText})`)
 		}
-    //setSavedEventsList(savedEventsList.filter(savedEvent => savedEvent.id !== eventId))
   } catch(error) {
     console.error(`Error in fetch: ${error.message}`)
   }

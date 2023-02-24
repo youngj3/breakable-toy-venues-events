@@ -22,7 +22,7 @@ const LandingPage = props => {
     getPopularEvents()
   }, [])
 
-  const popularEventsAsReactTiles = popularEvents.map(event => {
+  const popularEventsAsReactTiles = popularEvents?.map(event => {
     return (
       <EventTile 
       key={event.id}

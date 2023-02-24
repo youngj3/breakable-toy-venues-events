@@ -169,6 +169,12 @@ class TicketMaster {
       return { error: error.message };
     }
   }
+
+  static async getVenueIdFromEventQuery(eventId) {
+    const eventData = await this.fetchEventForShowPage(eventId)
+    const venueId = eventData._embedded.events[0]._embedded.venues[0].id
+    return venueId
+  }
 }
 
 export default TicketMaster
