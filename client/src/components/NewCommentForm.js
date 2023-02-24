@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-import ErrorList from "./layout/ErrorList"
+import ErrorList from "./layout/ErrorList";
 import translateServerErrors from "../services/translateServerErrors.js";
 
 const NewCommentForm = ({event, setEvent, togglePopup}) => {

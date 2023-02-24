@@ -90,7 +90,6 @@ const EventShowPage = (props) => {
   }
 
   useEffect(() => {
-    // these could all be done in one fetch requests
     getSavedEvents()
     getEventDetails()
     getLocation()

@@ -40,15 +40,8 @@ const TopBar = ({ user }) => {
               <a href="/venues?state=RI">RI</a>
               <a href="/venues?state=CT">CT</a>
               <a href="/venues?state=NY">NY</a>
-              {/* <Link to='/venues?state=MA'>Massachusets</Link>
-              <Link to='/venues?state=RI'>Rhode Island</Link>
-              <Link to='/venues?state=CT'>Connecticut</Link>
-              <Link to='/venues?state=NY'>New York</Link> */}
             </div>
           </div>
-          {/* <li>
-          <Link to="/venues">Mass Locations</Link>
-          </li> */}
         </ul>
       </div>
       <div className="top-bar-right">
