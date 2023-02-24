@@ -1,5 +1,5 @@
 import { User } from '../../models/index.js'
-import faker from '@faker-js/faker'
+import { faker } from '@faker-js/faker'
 
 class UserSeeder {
   static async seed(usersToSeed){
