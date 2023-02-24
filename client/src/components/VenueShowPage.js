@@ -13,6 +13,7 @@ const VenueShowPage = props => {
     image: "",
     address: "",
     postalCode: "",
+    location: {},
     events: []
   })
 
@@ -41,7 +42,8 @@ const VenueShowPage = props => {
     return (
       <EventTile
         key={event.id}
-        event={event}/>
+        event={event}
+        venueId={venueId}/>
     )
   })
 
@@ -65,7 +67,7 @@ const VenueShowPage = props => {
             <img src={venue.image} className='show-page-image' />
           </div>
           <div className="v-show-page-left callout secondary medium-6">
-            <SimpleJsApiLoaderGoogleMap location={fullAddress} />
+            <SimpleJsApiLoaderGoogleMap location={venue.location} />
           </div>
         </div>
         </div>

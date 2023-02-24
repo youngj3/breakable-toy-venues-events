@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom"
-import ErrorList from "./layout/ErrorList"
+import { useParams } from "react-router-dom";
+import ErrorList from "./layout/ErrorList";
+import translateServerErrors from "../services/translateServerErrors.js";
 
 const NewCommentForm = ({event, setEvent, togglePopup}) => {
+  const eventId = event.exactId
   const venueId = useParams().venueId
-  const eventId = event.id
   const [newComment, setNewComment] = useState({
     text: ""
   })
@@ -29,7 +30,12 @@ const NewCommentForm = ({event, setEvent, togglePopup}) => {
         }
       } else {
         const body = await response.json()
-        return body.newComment
+        const thisEvent = body.event
+        const newComment = body.newComment
+        setEvent({
+          ...thisEvent,
+          comments: [...thisEvent.comments, newComment]
+        })
       }
     } catch(error) {
       console.error(`Error in fetch: ${error.message}`)
@@ -42,13 +48,9 @@ const NewCommentForm = ({event, setEvent, togglePopup}) => {
     })
   }
 
-  const handleSubmit = async e => {
+  const handleSubmit = e => {
     e.preventDefault()
-    const newCommentData = await createNewComment(newComment)
-    setEvent({
-      ...event,
-      comments: [...event.comments, newCommentData]
-    })
+    createNewComment(newComment)
     togglePopup()
     clearForm()
   }
@@ -65,13 +67,13 @@ const NewCommentForm = ({event, setEvent, togglePopup}) => {
       <form onSubmit={handleSubmit} className="comment-form">
         <h6><b>Get in on the discourse!</b></h6>
         <ErrorList errors={errors} />
-        <label htmlFor="text" >
+        <label>
           Your Thoughts on "{event.name}":
         </label>
         <textarea
             className="comment-form-input"
-            name="text"
             id="text"
+            name="text"
             onChange={handleInputChange}
             value={newComment.text}
           />

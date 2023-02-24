@@ -8,11 +8,8 @@
 exports.up = async (knex) => {
   return knex.schema.createTable('events', table => {
     table.bigIncrements('id')
-    table.bigInteger('venueId')
-      .notNullable()
-      .unsigned()
-      .index()
-      .references('venues.id')
+    table.string('exactId').notNullable()
+    table.string('venueId').notNullable()
     table.string('name').notNullable()
     table.string('image')
     table.string('date')

@@ -9,7 +9,7 @@ class EventSerializer extends Serializer {
 
   static async getDetailsForEventShow(event) {
     try{
-      const serializedEvent = this.serialize(event, ['id', 'venueId', 'name', 'image', 'genre', 'date', 'priceRange', 'description'])
+      const serializedEvent = this.serialize(event, ['id', 'venueId', 'name', 'image', 'genre', 'date', 'priceRange', 'description', 'exactId'])
       const relatedComments = await event.$relatedQuery("comments")
       const serializedComments = await Promise.all(
         relatedComments.map(async (comment) => {

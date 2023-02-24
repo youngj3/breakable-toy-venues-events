@@ -1,9 +1,9 @@
 import React from 'react'
 import { Link } from "react-router-dom";
 
-const EventTile = ({event}) => {
-  const { id, name, image, venueId } = event
-  const eventId = id
+const EventTile = ({event, venueId}) => {
+  const { id, name, image, exactId } = event
+  const eventId = exactId
   let eventImage
 	if (image) {
 		eventImage = <img className="event-tile-picture" src={image}/>

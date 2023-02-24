@@ -15,19 +15,21 @@ const EventShowPage = (props) => {
   const [ venueName, setVenueName ] = useState("")
   const [ event, setEvent ] = useState({
     id: "",
+    exactId: "",
     name: "",
     image: "",
     genre: "",
     date: "",
     priceRange: "",
     description: "",
-    venueId: "",
+    venueId: venueId,
     comments: []
   })
+
   const [showPopup, setShowPopup] = useState(false);
 
   const alreadyExists = () => {
-    return savedEventsList.some(savedEvent => savedEvent.id === event.id);
+    return savedEventsList.some(savedEvent => savedEvent.exactId === eventId);
   }
     
   const getEventDetails = async () => {
@@ -74,23 +76,23 @@ const EventShowPage = (props) => {
   const handleSaveEvent = e => {
     e.preventDefault()
     if (!alreadyExists()) {
-      const eventId = event.id
-      createAnInterest(eventId)
+      const eventId = event.exactId
+      createAnInterest(eventId, venueId)
       setSavedEventsList([...savedEventsList, event])
     }
   }
 
   const handleRemoveEvent = e => {
     e.preventDefault()
-    const eventId = event.id
+    const eventId = event.exactId
     deleteAnInterest(eventId)
-    setSavedEventsList(savedEventsList.filter(savedEvent => savedEvent.id !== event.id))
+    setSavedEventsList(savedEventsList.filter(savedEvent => savedEvent.exactId !== eventId))
   }
 
   useEffect(() => {
+    getSavedEvents()
     getEventDetails()
     getLocation()
-    getSavedEvents()
   }, [])
 
   const togglePopup = e => {
@@ -107,6 +109,7 @@ const EventShowPage = (props) => {
       >
         <div className='popup'>
         <NewCommentForm 
+          venueId={venueId}
           event={event}
           setEvent={setEvent}
           togglePopup={togglePopup}
@@ -126,7 +129,7 @@ const EventShowPage = (props) => {
     }
   }
 
-  const commentsAsReact = event.comments.map(comment => {
+  const commentsAsReact = event.comments?.map(comment => {
     return (
       <CommentTile 
       key={comment.id}

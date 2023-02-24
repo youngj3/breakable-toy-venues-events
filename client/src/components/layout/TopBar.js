@@ -31,9 +31,17 @@ const TopBar = ({ user }) => {
           <li>
             <Link to="/">Home</Link>
           </li>
-          <li>
-          <Link to="/venues">Mass Locations</Link>
-          </li>
+          <div className="dropdown">
+            <button className="dropbtn">Our Locations
+            <i className="fa fa-caret-down"></i>
+            </button>
+            <div className="dropdown-content">
+              <a href="/venues?state=MA">MASS</a>
+              <a href="/venues?state=RI">RI</a>
+              <a href="/venues?state=CT">CT</a>
+              <a href="/venues?state=NY">NY</a>
+            </div>
+          </div>
         </ul>
       </div>
       <div className="top-bar-right">
