@@ -6,9 +6,9 @@ import InterestSeeder from "./seeders/InterestSeeder.js"
 
 class Seeder {
   static async seed() {
-    // include individual seed commands here
+
     const usersToSeed = 5
-    
+
     console.log('seeding users...')
     await UserSeeder.seed(usersToSeed)
     
