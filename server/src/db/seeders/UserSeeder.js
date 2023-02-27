@@ -3,13 +3,15 @@ import { faker } from '@faker-js/faker'
 
 class UserSeeder {
   static async seed(usersToSeed){
+
     const freeCredentials = {
       firstName: faker.name.firstName(),
       lastName: faker.name.lastName(),
       userName: faker.internet.userName(),
       email: 'freeLogin@gmail.com',
-      cryptedPassword: 12345
+      cryptedPassword: '12345'
     }
+
     const createUser = () => {
       return {
         firstName: faker.name.firstName(),
