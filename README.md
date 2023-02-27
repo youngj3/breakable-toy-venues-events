@@ -1,7 +1,9 @@
 # GigGuide
 
 An app to help users locate nearby Venues and see what concerts are being played there in the near future.
+
 [Use it here](https://breakable-toy-venues-events.herokuapp.com/)
+
 If you don't have time to create a newUser and would like access to all features, please use the following credentials:
 
 Email: johnDoe12@gmail.com
@@ -36,9 +38,6 @@ Password: 12345
   - Navigate to the app root directory and run `yarn dev`
 
   - Go to `localhost:3000` in a browser to see the app!
-  
-# Creator
-James Young
 
 # Technologies Used: 
 
@@ -47,3 +46,6 @@ Front End: ReactJS, Sass, HTML
 Back End: NodeJS, Express, Objection, Knex
 
 External Libraries: Google Maps, TicketMaster, OpenAi, faker-js, reactjs-popup, react-select-us-states
+
+# Creator
+James Young
