@@ -40,37 +40,13 @@ const EventShowPage = (props) => {
 			}
       const eventData = await response.json()
       setEvent(eventData.event)
-    } catch(error) {
-			console.error(`Error in fetch: ${error.message}`)
-		}
-  }
-
-  const getLocation = async () => {
-    try {
-      const response = await fetch(`/api/v1/venues/${venueId}`)
-      if (!response.ok) {
-				throw new Error(`${response.status} (${response.statusText})`)
-			}
-      const venueInformation = await response.json()
-      setVenueName(venueInformation.venue.name)
-    } catch(error) {
-			console.error(`Error in fetch: ${error.message}`)
-		}
-  }
-
-  const getSavedEvents = async () => {
-    if (currentUser) {
-      try{
-        const response = await fetch('/api/v1/interests')
-        if (!response.ok) {
-          throw new Error(`${response.status} (${response.statusText})`)
-        }
-        const body = await response.json()
-        setSavedEventsList(body.savedEvents)
-      } catch(error) {
-        console.error(`Error in fetch: ${error.message}`)
+      setVenueName(eventData.venueName)
+      if (currentUser) {
+        setSavedEventsList(eventData.savedEvents)
       }
-    }
+    } catch(error) {
+			console.error(`Error in fetch: ${error.message}`)
+		}
   }
   
   const handleSaveEvent = e => {
@@ -90,9 +66,7 @@ const EventShowPage = (props) => {
   }
 
   useEffect(() => {
-    getSavedEvents()
     getEventDetails()
-    getLocation()
   }, [])
 
   const togglePopup = e => {

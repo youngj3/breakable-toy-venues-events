@@ -8,7 +8,7 @@ const openai = new OpenAi(apiKey)
 class DescriptionCreator {
   static async attachDescription(eventName) {
     try {
-      const basePrompt = "Write a description for this concert: "
+      const basePrompt = "Write a description for this concert (max tokens 150): "
       const prompt = basePrompt + eventName
       const description = await OpenAi.generateText(prompt)
       return description

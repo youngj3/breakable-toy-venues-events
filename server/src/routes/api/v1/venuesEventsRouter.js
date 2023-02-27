@@ -8,9 +8,12 @@ import DescriptionCreator from '../../../../apiClient/DescriptionCreator.js'
 const venuesEventsRouter = new express.Router({mergeParams: true})
 
 venuesEventsRouter.get('/:id', async (req, res) => {
+  const user = req.user
   const eventId = req.params.id
+  const venueId = req.params.venueId
   try {
     let event
+    let savedEvents
     const doesItExist = await Event.query().findOne({exactId: eventId})
     if (!doesItExist) {
       event = await TicketMaster.prepareEventForShowPage(eventId)
@@ -19,7 +22,11 @@ venuesEventsRouter.get('/:id', async (req, res) => {
     } else {
       event = await EventSerializer.getDetailsForEventShow(doesItExist)
     }
-    return res.status(200).json({event: event})
+    if (user){
+      savedEvents = await user.$relatedQuery('events')
+    }
+    const venueName = await TicketMaster.getVenueName(venueId)
+    return res.status(200).json({event: event, savedEvents: savedEvents, venueName: venueName})
   } catch(error) {
 		res.status(500).json({ errors: error})
 	}
