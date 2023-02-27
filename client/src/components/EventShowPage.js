@@ -126,10 +126,10 @@ const EventShowPage = (props) => {
             <img src={event.image} className="show-page-image" />
             </div>
 						<div className="e-show-page-right callout secondary medium-6">
-							<p><b>Genre:</b> {event.genre}</p>
-							<p><b>When:</b> {readableDate}</p>
-              <p><b>Where:</b> {venueName}</p>
-							<p><b>Est. Price($USD):</b> {event.priceRange}</p>
+							<p><b>Genre</b> {event.genre}</p>
+							<p><b>When</b> {readableDate}</p>
+              <p><b>Where</b> {venueName}</p>
+							<p><b>Est. Price($USD)</b> {event.priceRange}</p>
               {button}
 						</div>
             <div className='callout'>
