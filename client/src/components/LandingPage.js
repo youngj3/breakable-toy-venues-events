@@ -26,7 +26,8 @@ const LandingPage = props => {
     return (
       <EventTile 
       key={event.id}
-      event={event}/>
+      event={event}
+      venueId={event.venueId}/>
     )
   })
 
