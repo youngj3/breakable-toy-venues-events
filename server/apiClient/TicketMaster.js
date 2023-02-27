@@ -24,6 +24,12 @@ class TicketMaster {
     }
   }
 
+  static async getVenueName(venueId) {
+    const venueData = await this.fetchSingleVenue(venueId)
+    const venueName = venueData._embedded.venues[0].name
+    return venueName
+  }
+
   static async prepareVenueForShowPage(exactId) {
     try {
       const venueData = await this.fetchSingleVenue(exactId)
@@ -175,6 +181,7 @@ class TicketMaster {
     const venueId = eventData._embedded.events[0]._embedded.venues[0].id
     return venueId
   }
+
 }
 
 export default TicketMaster

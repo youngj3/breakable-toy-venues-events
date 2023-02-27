@@ -61,7 +61,7 @@ const VenueShowPage = props => {
     <div>
       <div className="centered-content">
         <h1>{venue.name}</h1>
-        <p><b>Located at:</b> {fullAddress}</p>
+        <h6>{fullAddress}</h6>
         <div className="grid-x">
           <div className="v-show-page-left callout secondary medium-6">
             <img src={venue.image} className='show-page-image' />

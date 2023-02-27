@@ -30,16 +30,6 @@ interestsRouter.post('/', async (req, res) => {
   }
 })
 
-interestsRouter.get('/', async (req, res) => {
-  try {
-    const user = req.user
-    const savedEvents = await user.$relatedQuery('events')
-    return res.status(200).json({savedEvents: savedEvents})
-  } catch(error) {
-    return res.status(500).json({errors: error})
-  }
-})
-
 interestsRouter.delete('/:eventId', async (req, res) => {
   const userId = req.user.id
   const eventId = req.params.eventId

@@ -21,9 +21,7 @@ const App = (props) => {
   const fetchCurrentUser = async () => {
     try {
       const user = await getCurrentUser()
-      //const savedEvents = await getInterestedEventsForUser()
       setCurrentUser(user)
-      //setSavedEventsList(savedEvents)
     } catch(err) {
       setCurrentUser(null)
     }
