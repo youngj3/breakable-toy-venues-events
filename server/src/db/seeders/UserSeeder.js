@@ -7,7 +7,7 @@ class UserSeeder {
       firstName: faker.name.firstName(),
       lastName: faker.name.lastName(),
       userName: faker.internet.userName(),
-      email: faker.internet.email(),
+      email: 'freeLogin@gmail.com',
       cryptedPassword: 12345
     }
     const createUser = () => {
