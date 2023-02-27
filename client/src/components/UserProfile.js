@@ -38,6 +38,7 @@ const UserProfile = props => {
       <EventTile
         key={event.id}
         event={event}
+        venueId={event.venueId}
       />
     )
   })
