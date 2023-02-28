@@ -41,7 +41,7 @@ const VenueShowPage = props => {
   const eventsAsReactTiles = currentEvents.map(event => {
     return (
       <EventTile
-        key={event.exactId}
+        key={event.id}
         event={event}
         venueId={venueId}/>
     )

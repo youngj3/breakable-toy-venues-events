@@ -39,7 +39,6 @@ a:hover, a:active, a:focus {
   margin: 4rem auto;
   padding: 2rem;
   border-radius: 3rem;
-  box-shadow: 2px 1px 1px #d7263d;
 }
 
 .centered-content {
@@ -70,7 +69,7 @@ a:hover, a:active, a:focus {
 }
 
 .venue-tile:hover {
-  box-shadow: 0 8px 16px 0 #d7263d;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
 
 .top-bar, .top-bar ul {

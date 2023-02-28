@@ -36,7 +36,7 @@ const VenueList = props => {
 
   useEffect(() => {
     getVenues()
-  }, [props.location.search])
+  }, [])
 
   const goToPreviousPage = () => {
     setCurrentPage(currentPage - 1)
