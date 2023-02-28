@@ -221,11 +221,6 @@ textarea#text.comment-form-input {
   text-align: center;
 }
 
-.dropdown {
-  float: left;
-  overflow: hidden;
-}
-
 .dropdown .dropbtn {
   font-size: 18px;  
   border: none;
@@ -238,27 +233,13 @@ textarea#text.comment-form-input {
 }
 
 .dropdown-content {
-  display: none;
+  display: flex;
+  flex-wrap: wrap;
   position: absolute;
   background-color: #f9f9f9;
-  max-width: 200px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
-}
-
-.dropdown-content {
-  float: none;
   color: black;
   padding: 12px 16px;
   text-decoration: none;
-  display: block;
   text-align: left;
-}
-
-.dropdown-content hover {
-  background-color:#d7263d
-}
-
-.dropdown:hover .dropdown-content {
-  display: block;
 }

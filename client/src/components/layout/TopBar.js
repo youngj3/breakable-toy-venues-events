@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import SignOutButton from "../authentication/SignOutButton";
-import SelectUSState from 'react-select-us-states'
+import StateSelectionDropdown from "./state-select/StateSelectionDropdown";
 
 const TopBar = ({ user }) => {
-  const history = useHistory();
+  const [showMenu, setShowMenu] = useState(false)
+
   const unauthenticatedListItems = [
     <li key="sign-in">
       <Link to="/user-sessions/new">Sign In</Link>
@@ -25,8 +26,8 @@ const TopBar = ({ user }) => {
     </li>
   ];
 
-  const handleStateChange = (stateCode) => {
-    history.push(`/venues?state=${stateCode}`);
+  const showStateMenu = e => {
+    setShowMenu(showMenu ? false : true)
   }
 
   return (
@@ -38,12 +39,8 @@ const TopBar = ({ user }) => {
             <Link to="/">Home</Link>
           </li>
           <div className="dropdown">
-            <button className="dropbtn">Our Locations
-            <i className="fa fa-caret-down"></i>
-            </button>
-            <div className="dropdown-content">
-              <SelectUSState onChange={handleStateChange}/>
-            </div>
+            <input type="button" className="dropbtn" onClick={showStateMenu} value="Our Locations" />
+              <StateSelectionDropdown showMenu={showMenu}/>
           </div>
         </ul>
       </div>
