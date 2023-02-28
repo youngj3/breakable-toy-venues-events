@@ -28,11 +28,13 @@ a:hover, a:active, a:focus {
 .venue-list {
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-around;
 }
 
 .venue-tile {
   display: flex-row;
   flex-wrap: wrap;
+  min-width: 200px;
   width: 25%;
   margin: 4rem auto;
   padding: 2rem;
@@ -239,12 +241,12 @@ textarea#text.comment-form-input {
   display: none;
   position: absolute;
   background-color: #f9f9f9;
-  min-width: 160px;
+  max-width: 200px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
 }
 
-.dropdown-content Link {
+.dropdown-content {
   float: none;
   color: black;
   padding: 12px 16px;
@@ -253,7 +255,7 @@ textarea#text.comment-form-input {
   text-align: left;
 }
 
-.dropdown-content Link:hover {
+.dropdown-content hover {
   background-color:#d7263d
 }
 

@@ -68,7 +68,7 @@ const NewCommentForm = ({event, setEvent, togglePopup}) => {
         <h6><b>Get in on the discourse!</b></h6>
         <ErrorList errors={errors} />
         <label>
-          Your Thoughts on "{event.name}":
+          Your Thoughts on "{event.name}"
         </label>
         <textarea
             className="comment-form-input"
