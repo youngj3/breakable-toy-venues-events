@@ -13,6 +13,7 @@ import VenueList from "./VenueList.js";
 import VenueShowPage from "./VenueShowPage.js";
 import EventShowPage from "./EventShowPage.js";
 import Footer from "./layout/Footer.js";
+import AboutTheDeveloper from "./AboutTheDeveloper.js";
 
 const App = (props) => {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -48,6 +49,7 @@ const App = (props) => {
           exact path="/users/:id" 
           render={props => <UserProfile {...props} savedEventsList={savedEventsList} setSavedEventsList={setSavedEventsList}/>}
         />
+        <Route exact path="/aboutTheDeveloper" component={AboutTheDeveloper} />
       </Switch>
       <Footer />
     </Router>

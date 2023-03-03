@@ -1,22 +1,29 @@
 import React from 'react'
-import githubMark from '../../assets/images/githubMark.png'
+import { FaGithub, FaLinkedin } from "react-icons/fa"
 
 const Footer = () => {
-  const image = <img src={githubMark} className="footer-img"/>
   return(
-    <div className='footer'>
-      <div className='grid-x'>
-        <div className='footer left callout medium-6'>
-          
-        </div>
-        <div className='footer right callout medium-6'>
-          <div className='my-name'>
-            <p><br/>Created by: <b>James Young</b></p>
-          </div>
-          <a href='https://github.com/youngj3'>{image}</a>
-        </div>
-      </div>
-    </div>
+    <div className="footer">
+    <ul className="menu simple align-center">
+      <li>
+        <a href="https://www.linkedin.com/in/young-james-j/">
+          <FaLinkedin />
+        </a>
+      </li>
+      <li>
+        <a href="https://github.com/youngj3">
+          <FaGithub />
+        </a>
+      </li>
+      <li>
+        Developed By <b>James Young</b>
+      </li>
+    </ul>
+    <br />
+    <ul className="menu simple align-center">
+      <a href="/aboutTheDeveloper"><b>About</b></a>
+    </ul>
+  </div>
   )
 }
 
