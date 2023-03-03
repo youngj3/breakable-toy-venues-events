@@ -28,16 +28,27 @@ Password: 12345
   - Run `yarn install`
 
   - Run `createdb breakable-toy-venues-events_development`
-
+  
+  - Run `createdb breakable-toy-venues-events_e2e`
+  
   - Navigate to the server folder and run:
-
+  
     * `yarn migrate:latest`
+
+    * `yarn run db:e2e:migrate`
 
     * `yarn db:seed`
 
   - Navigate to the app root directory and run `yarn dev`
 
   - Go to `localhost:3000` in a browser to see the app!
+  
+  - For testing:
+  
+    * `yarn run dev:cypress`
+    
+    * Navigate to a new tab in the terminal and run `yarn e2e:open` to select a single test,
+      or to run all tests at once `yarn e2e:run`
 
 # Technologies Used: 
 
@@ -45,7 +56,7 @@ Front End: ReactJS, Sass, HTML
 
 Back End: NodeJS, Express, Objection, Knex
 
-External Libraries: Google Maps, TicketMaster, OpenAi, faker-js, reactjs-popup, react-select-us-states
+External Libraries: Cypress, Google Maps, TicketMaster, OpenAi, faker-js, reactjs-popup
 
 # Creator
 James Young
