@@ -9,7 +9,7 @@ describe("As a user visiting the sign in page", () => {
     cy.task("db:truncate", "User");
     cy.task("db:insert", {
       modelName: "User",
-      json: { email: "user@example.com", password: "password" },
+      json: { firstName: "carlos", lastName: "boozer", userName: "boozeBag5", email: "user@example.com", password: "password" },
     });
   });
 
