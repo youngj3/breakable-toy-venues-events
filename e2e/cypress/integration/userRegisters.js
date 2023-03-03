@@ -12,6 +12,9 @@ describe("As a user visiting the sign in page", () => {
   it("If I provide a valid email, password, and password confirmation, I will be signed in", () => {
     visitRegistrationPage();
     cy.get("form").within(() => {
+      cy.findByLabelText("First name").type("Carlos")
+      cy.findByLabelText("Last name").type("Boozer")
+      cy.findByLabelText("User name").type("CarloBoozah5")
       cy.findByLabelText("Email").type("user@example.com");
 
       cy.findByLabelText("Password").type("password");
