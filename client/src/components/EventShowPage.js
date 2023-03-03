@@ -134,6 +134,7 @@ const EventShowPage = (props) => {
 						</div>
             <div className='callout'>
             <p>{event.description}</p>
+            <p><sup><i>powered by OpenAi</i></sup></p>
             </div>
 					</div>
           {newComment}
