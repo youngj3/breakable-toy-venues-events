@@ -17,6 +17,8 @@ const VenueShowPage = props => {
     events: []
   })
 
+  let noEvents
+
   const getVenueInformation = async () => {
     try {
       const response = await fetch(`/api/v1/venues/${venueId}`)
@@ -55,6 +57,10 @@ const VenueShowPage = props => {
     setCurrentEventPage(currentEventPage + 1)
   }
 
+  if (venue.events.length === 0){
+    noEvents = 'No concerts currently scheduled...'
+  }
+
   const fullAddress = `${venue.address}, ${venue.city}, ${venue.state} ${venue.postalCode}`
 
   return (
@@ -72,7 +78,8 @@ const VenueShowPage = props => {
         </div>
         </div>
       <div className="centered-content">
-				<h2>Upcoming Events:</h2>
+				<h2>Upcoming Concerts:</h2>
+        <h3>{noEvents}</h3>
         <input className='button' type='button' value='Previous' onClick={goToPreviousPage} disabled={currentEventPage === 1}/>
         <input className='button' type='button' value='   Next   ' onClick={goToNextPage} disabled={currentEvents.length < eventsPerPage} />
 				<div className="show-page-events-list">
